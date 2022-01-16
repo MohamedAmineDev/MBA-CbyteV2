@@ -33,7 +33,7 @@ public class MenuAdministrateur implements IMenuAdministrateur {
         do {
             menu();
         }
-        while (reponse != 10);
+        while (reponse != 11);
         scanner.close();
     }
 
@@ -49,7 +49,8 @@ public class MenuAdministrateur implements IMenuAdministrateur {
         System.out.println("7) Créer charte");
         System.out.println("8) Consulter les reclamations de chaque client");
         System.out.println("9) Supprimer un reclamation");
-        System.out.println("10) Quitter l'application");
+        System.out.println("10) Calculer score des candidats");
+        System.out.println("11) Quitter l'application");
         reponse = this.scanner.nextInt();
         switch (reponse) {
             case 1:
@@ -77,10 +78,13 @@ public class MenuAdministrateur implements IMenuAdministrateur {
                 choix8();
                 break;
             case 9:
-                choix8();
+                choix9();
                 break;
             case 10:
-                choix8();
+                choix10();
+                break;
+            case 11:
+                choix11();
                 break;
             default:
                 System.out.println("Vous devez choisir une des options du menu !!!! ");
@@ -444,15 +448,23 @@ public class MenuAdministrateur implements IMenuAdministrateur {
 
     @Override
     public void choix8() {
-        for (ListeElectoriale liste : administrateur.getListeElectorale()) {
-            if (!liste.getCandidatList().isEmpty()) {
-                for (Candidat candidat : liste.getCandidatList()
-                ) {
-                    if (!candidat.getReclamations().isEmpty()) {
-                        candidat.consulterReclamation();
+        if(!administrateur.getListeElectorale().isEmpty()){
+            for (ListeElectoriale liste : administrateur.getListeElectorale()) {
+                if (!liste.getCandidatList().isEmpty()) {
+                    for (Candidat candidat : liste.getCandidatList()
+                    ) {
+                        if (!candidat.getReclamations().isEmpty()) {
+                            candidat.consulterReclamation();
+                        }
+                        else{
+                            System.out.println("Le candidat "+candidat.getNom()+" n'a pas de reclamation !");
+                        }
                     }
                 }
             }
+        }
+        else{
+            System.out.println("Les listes electoriales sont vides !!!");
         }
     }
 
@@ -465,20 +477,81 @@ public class MenuAdministrateur implements IMenuAdministrateur {
         while (numListe > administrateur.nombreDeListes());
         System.out.println("Donner le cin du candidat");
         int cin = scanner.nextInt();
+        numListe--;
         Candidat candidat = administrateur.chercherCandidat(numListe, cin);
         if (candidat != null) {
             candidat.consulterReclamation();
             int numReclamation = 0;
             System.out.println("Donner l'id du reclamation");
             numReclamation = scanner.nextInt();
-           //boolean test=
+            Reclamation reclamation = candidat.chercherReclamation(numReclamation);
+            if (reclamation != null) {
+                boolean test = candidat.supprimerReclamation(reclamation);
+                if (test) {
+                    System.out.println("Suppression de la reclamation est un succès ");
+                } else {
+                    System.out.println("Echec de la suppression !");
+                }
+            }
         } else {
+            System.out.println("Candidat introuvable !");
 
         }
     }
 
     @Override
     public void choix10() {
+        for (ListeElectoriale liste: administrateur.getListeElectorale()
+             ) {
+            for (Candidat candidat: liste.getCandidatList()
+                 ) {
+                candidat.calculerScore();
+            }
+        }
+        System.out.println("Les scores sont maitenant calculé ");
+    }
 
+    public Administrateur getAdministrateur() {
+        return administrateur;
+    }
+
+    public void setAdministrateur(Administrateur administrateur) {
+        this.administrateur = administrateur;
+    }
+
+    public Scanner getScanner() {
+        return scanner;
+    }
+
+    public void setScanner(Scanner scanner) {
+        this.scanner = scanner;
+    }
+
+    public int getReponse() {
+        return reponse;
+    }
+
+    public void setReponse(int reponse) {
+        this.reponse = reponse;
+    }
+
+    public List<Electeur> getElecteurs() {
+        return electeurs;
+    }
+
+    public void setElecteurs(List<Electeur> electeurs) {
+        this.electeurs = electeurs;
+    }
+
+    @Override
+    public void choix11() {
+        int choix = 0;
+        do {
+            System.out.println("Voulez vous vraiment quitter l'application ?");
+            System.out.println("1) Oui");
+            System.out.println("2) Non");
+            choix = scanner.nextInt();
+        }
+        while (choix < 1 || choix > 2);
     }
 }

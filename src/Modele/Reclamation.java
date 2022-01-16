@@ -15,12 +15,12 @@ public class Reclamation implements Serializable {
 
     public Reclamation() {
         dernierId++;
-        id=dernierId;
+        id = dernierId;
     }
 
     public Reclamation(String sujet, String justification) {
         dernierId++;
-        id=dernierId;
+        id = dernierId;
         this.sujet = sujet;
         this.justification = justification;
     }
@@ -96,13 +96,14 @@ public class Reclamation implements Serializable {
 
     @Override
     public String toString() {
-        return "Reclamation{" +
+        return "id=" + id + ",administrateur=" + administrateur + "" + electeur + "" + sujet + "" + justification;
+        /*return "Reclamation{" +
                 "id=" + id +
                 ", administrateur=" + administrateur +
                 ", electeur=" + electeur +
                 ", candidat=" + candidat +
                 ", sujet='" + sujet + '\'' +
                 ", justification='" + justification + '\'' +
-                '}';
+                '}';*/
     }
 }

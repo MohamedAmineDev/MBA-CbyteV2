@@ -31,7 +31,6 @@ public class Administrateur extends Utilisateur implements IAdministrateur {
     @Override
     public boolean ajouterCandidat(int numeroListe, Candidat candidat) {
         if (numeroListe < this.nombreDeListes() && candidat != null) {
-            candidat.calculerScore();
             return this.getListeElectorale().get(numeroListe).ajouterCandidat(candidat);
         }
         return false;

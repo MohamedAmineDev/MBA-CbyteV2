@@ -482,24 +482,6 @@ public class Candidat implements ICandidat, Serializable {
     }
 
     @Override
-    public String toString() {
-        return "Candidat{" +
-                "cin=" + cin +
-                ", nom='" + nom + '\'' +
-                ", prenom='" + prenom + '\'' +
-                ", dateNaissance='" + dateNaissance + '\'' +
-                ", photo='" + photo + '\'' +
-                ", nomPartie='" + nomPartie + '\'' +
-                ", facebook='" + facebook + '\'' +
-                ", tweeter='" + tweeter + '\'' +
-                ", activites=" + activites +
-                ", score=" + score +
-                ", avis=" + avis +
-                ", reclamations=" + reclamations +
-                "}\n";
-    }
-
-    @Override
     public void afficherCandidat(int n, String[] tab) {
         String[] ts = new String[7];
         ts[0] = " " + n + "";
@@ -606,5 +588,10 @@ public class Candidat implements ICandidat, Serializable {
         }
         Design.dessinerCases(ts, ts.length);
         Design.dessinerLigne(180);
+    }
+
+    @Override
+    public String toString() {
+        return "" + nom + "" + prenom + "" + dateNaissance + "" + photo + "" + nomPartie + "" + facebook + "" + tweeter + "" + activites + "" + avis + "" + reclamations;
     }
 }

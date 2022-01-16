@@ -120,4 +120,12 @@ public class ListeElectoriale implements IListeElectoriale {
         }
     }
 
+    @Override
+    public String toString() {
+        return "" + candidatList + "" + score;
+        /*return "ListeElectoriale{" +
+                "candidatList=" + candidatList +
+                ", score=" + score +
+                '}';*/
+    }
 }

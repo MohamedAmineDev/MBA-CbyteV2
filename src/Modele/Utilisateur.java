@@ -71,7 +71,7 @@ public abstract class Utilisateur implements IUtilisateur, Serializable {
 
     @Override
     public String toString() {
-        return "Utilisateur{}";
+        return "username=" + userName + ",password=" + password + "" + listeElectorale + "" + charts;
     }
 
     @Override

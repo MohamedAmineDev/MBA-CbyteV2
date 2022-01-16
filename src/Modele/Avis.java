@@ -79,11 +79,12 @@ public class Avis implements Serializable {
 
     @Override
     public String toString() {
-        return "Avis{" +
+        return "" + id + "" + note + "" + electeur + "" + candidat + "";
+       /* return "Avis{" +
                 "id=" + id +
                 ", note=" + note +
                 ", electeur=" + electeur +
                 ", candidat=" + candidat +
-                '}';
+                '}';*/
     }
 }

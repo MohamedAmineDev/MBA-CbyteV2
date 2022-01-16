@@ -81,11 +81,12 @@ public class Activite implements Serializable {
 
     @Override
     public String toString() {
-        return "Activite{" +
+        return "" + id + "" + duree + "" + support + "" + candidat;
+       /* return "Activite{" +
                 "id=" + id +
                 ", duree=" + duree +
                 ", support=" + support +
                 ", candidat=" + candidat +
-                '}';
+                '}';*/
     }
 }

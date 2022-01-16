@@ -64,4 +64,9 @@ public class MenuElecteur implements IMenuElecteur {
     public void choix10() {
 
     }
+
+    @Override
+    public void choix11() {
+
+    }
 }
