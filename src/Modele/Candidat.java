@@ -592,6 +592,6 @@ public class Candidat implements ICandidat, Serializable {
 
     @Override
     public String toString() {
-        return "" + nom + "" + prenom + "" + dateNaissance + "" + photo + "" + nomPartie + "" + facebook + "" + tweeter + "" + activites + "" + avis + "" + reclamations;
+        return "nom=" + nom + ",prenom=" + prenom + ",dateNaissance=" + dateNaissance + ",photo=" + photo + ",nomPartie=" + nomPartie + ",facebook=" + facebook + ",tweeter=" + tweeter + ",activites=>" + activites + ",avis=>" + avis + ",reclamations=>" + reclamations+"\n";
     }
 }

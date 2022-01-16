@@ -137,47 +137,7 @@ public abstract class Utilisateur implements IUtilisateur, Serializable {
         }
     }
 
-    @Override
-    public boolean sauvegarderCandidats(String lienFichierCandidat) {
-      /*  try {
-            FileOutputStream ecritureFichier = new FileOutputStream(lienFichierCandidat);
-            ObjectOutputStream ecriture = new ObjectOutputStream(ecritureFichier);
-            for (HashSet<Candidat> candidats : listeElectorale
-            ) {
-                for (Candidat candidat : candidats
-                ) {
-                    ecriture.writeObject(candidat);
-                }
-            }
-            System.out.println("Sauvegarde terminé !");
-            ecriture.close();
-        } catch (Exception exception) {
-            System.out.println("Echec de sauvegarde !");
-            System.out.println(exception.getMessage());
-        }*/
-        return false;
-    }
 
-    @Override
-    public void chargerCandidats(String lienFichierCandidat) {
-        File file = new File(lienFichierCandidat);
-        FileReader reader = null;
-        try {
-            reader = new FileReader(file);
-            BufferedReader reader1 = new BufferedReader(reader);
-            String ch = reader1.readLine();
-            while (ch != null) {
-                System.out.println(ch);
-                ch = reader1.readLine();
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-    }
 
     @Override
     public void consulterCharteNombreScore(Candidat candidat) {

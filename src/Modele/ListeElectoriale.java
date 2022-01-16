@@ -1,11 +1,12 @@
 package Modele;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import Design.Design;
 
-public class ListeElectoriale implements IListeElectoriale {
+public class ListeElectoriale implements IListeElectoriale, Serializable {
     private List<Candidat> candidatList;
     private double score;
 

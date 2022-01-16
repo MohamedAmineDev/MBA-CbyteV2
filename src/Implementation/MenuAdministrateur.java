@@ -1,5 +1,6 @@
 package Implementation;
 
+import Donnees.ManipulationDeDonnes;
 import Enumeration.Support;
 import Enumeration.Type;
 import Modele.*;
@@ -15,21 +16,22 @@ public class MenuAdministrateur implements IMenuAdministrateur {
     private Scanner scanner;
     private int reponse;
     private List<Electeur> electeurs;
+    private ManipulationDeDonnes manipulationDeDonnes;
 
     public MenuAdministrateur() {
         administrateur = new Administrateur();
         scanner = new Scanner(System.in);
         reponse = 0;
         electeurs = new ArrayList<>();
+        manipulationDeDonnes = new ManipulationDeDonnes();
     }
 
 
     @Override
     public void application() {
-        /// Scanner scanner = new Scanner(System.in);
-        int numListe;
-        //Integer reponse = 0;
-        Administrateur administrateur = new Administrateur();
+       /* ArrayList<ListeElectoriale> listeElectoriales = new ArrayList<>();
+        listeElectoriales.add(manipulationDeDonnes.chargerListeElectoriale("listeselectoriales.datas"));
+        administrateur.setListeElectorale(listeElectoriales);*/
         do {
             menu();
         }
@@ -448,22 +450,20 @@ public class MenuAdministrateur implements IMenuAdministrateur {
 
     @Override
     public void choix8() {
-        if(!administrateur.getListeElectorale().isEmpty()){
+        if (!administrateur.getListeElectorale().isEmpty()) {
             for (ListeElectoriale liste : administrateur.getListeElectorale()) {
                 if (!liste.getCandidatList().isEmpty()) {
                     for (Candidat candidat : liste.getCandidatList()
                     ) {
                         if (!candidat.getReclamations().isEmpty()) {
                             candidat.consulterReclamation();
-                        }
-                        else{
-                            System.out.println("Le candidat "+candidat.getNom()+" n'a pas de reclamation !");
+                        } else {
+                            System.out.println("Le candidat " + candidat.getNom() + " n'a pas de reclamation !");
                         }
                     }
                 }
             }
-        }
-        else{
+        } else {
             System.out.println("Les listes electoriales sont vides !!!");
         }
     }
@@ -501,10 +501,10 @@ public class MenuAdministrateur implements IMenuAdministrateur {
 
     @Override
     public void choix10() {
-        for (ListeElectoriale liste: administrateur.getListeElectorale()
-             ) {
-            for (Candidat candidat: liste.getCandidatList()
-                 ) {
+        for (ListeElectoriale liste : administrateur.getListeElectorale()
+        ) {
+            for (Candidat candidat : liste.getCandidatList()
+            ) {
                 candidat.calculerScore();
             }
         }
@@ -553,5 +553,27 @@ public class MenuAdministrateur implements IMenuAdministrateur {
             choix = scanner.nextInt();
         }
         while (choix < 1 || choix > 2);
+        if (choix == 1) {
+            do {
+                System.out.println("Voulez vous sauvegarder vos données ?");
+                System.out.println("1) Oui");
+                System.out.println("2) Non");
+                choix = scanner.nextInt();
+            }
+            while (choix < 1 || choix > 2);
+            if (choix == 1) {
+                boolean test;
+                for (ListeElectoriale liste : administrateur.getListeElectorale()
+                ) {
+                    test = manipulationDeDonnes.sauvegarderListeElectoriale("listeselectoriales.datas", liste);
+                    if (test == false) {
+                        System.out.println("Une erreur c'est produit !!!!!");
+                        break;
+                    }
+                }
+            }
+        } else {
+            menu();
+        }
     }
 }

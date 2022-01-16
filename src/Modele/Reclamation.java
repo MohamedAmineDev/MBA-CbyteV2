@@ -96,7 +96,7 @@ public class Reclamation implements Serializable {
 
     @Override
     public String toString() {
-        return "id=" + id + ",administrateur=" + administrateur + "" + electeur + "" + sujet + "" + justification;
+        return "id=" + id + ",sujet=" + sujet + ",justification" + justification;
         /*return "Reclamation{" +
                 "id=" + id +
                 ", administrateur=" + administrateur +
