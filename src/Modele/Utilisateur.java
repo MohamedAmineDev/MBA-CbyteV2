@@ -10,13 +10,18 @@ import java.util.Objects;
 
 public abstract class Utilisateur implements IUtilisateur, Serializable {
     private static final long serialVersionUID = 1L;
+    private static int dernierId;
+    private int id;
     private String userName;
     private String password;
     private List<ListeElectoriale> listeElectorale;
     private HashSet<Chart> charts;
 
     public Utilisateur() {
+        dernierId++;
+        id = dernierId;
         this.listeElectorale = new ArrayList<>();
+        charts = new HashSet<>();
     }
 
     public Utilisateur(String userName, String password) {
@@ -54,19 +59,6 @@ public abstract class Utilisateur implements IUtilisateur, Serializable {
 
     public void setCharts(HashSet<Chart> charts) {
         this.charts = charts;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Utilisateur)) return false;
-        Utilisateur that = (Utilisateur) o;
-        return Objects.equals(getUserName(), that.getUserName()) && Objects.equals(getPassword(), that.getPassword());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getUserName(), getPassword());
     }
 
     @Override
@@ -138,7 +130,6 @@ public abstract class Utilisateur implements IUtilisateur, Serializable {
     }
 
 
-
     @Override
     public void consulterCharteNombreScore(Candidat candidat) {
         if (!candidat.getAvis().isEmpty()) {
@@ -194,6 +185,19 @@ public abstract class Utilisateur implements IUtilisateur, Serializable {
     @Override
     public Candidat chercherCandidat(int numListe, int cin) {
         return this.chercherListe(numListe).chercherCandidat(cin);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Utilisateur)) return false;
+        Utilisateur that = (Utilisateur) o;
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
 

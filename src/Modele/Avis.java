@@ -14,6 +14,8 @@ public class Avis implements Serializable {
     public Avis() {
         dernierId++;
         id = dernierId;
+        electeur = new Electeur();
+        candidat = new Candidat();
     }
 
     public Avis(double note, Electeur electeur, Candidat candidat) {

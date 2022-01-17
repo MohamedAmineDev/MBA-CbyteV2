@@ -85,10 +85,7 @@ public class Administrateur extends Utilisateur implements IAdministrateur {
         double score = 0;
         if (numroListe < nombreDeListes()) {
             ListeElectoriale candidats = getListeElectorale().get(numroListe);
-            for (Candidat candidat : candidats.getCandidatList()) {
-                score = score + chartScoreParCandidat(candidat, electeurs).getResultat();
-            }
-            return new Chart("Chart de la  " + numroListe + " liste ", score, null);
+            return new Chart("Score de la liste electoriale numéro " + numroListe, candidats.getScore(), null);
         }
         return null;
     }

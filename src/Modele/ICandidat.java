@@ -13,6 +13,8 @@ public interface ICandidat {
 
     boolean supprimerActivite(Type type, Activite activite);
 
+    Avis chercherActivite(int id);
+
     void consulterActivites();
 
     boolean ajouterReclamation(Reclamation reclamation);

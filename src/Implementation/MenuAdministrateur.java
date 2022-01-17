@@ -423,6 +423,20 @@ public class MenuAdministrateur implements IMenuAdministrateur {
         if (choix == 1) {
             System.out.println("Donner le numéro de la liste");
             numList = scanner.nextInt();
+            numList--;
+            ListeElectoriale listeElectoriale = administrateur.chercherListe(numList);
+            Chart chart = administrateur.chartScoreParListeElectoriale(numList, electeurs);
+            if (chart != null) {
+                System.out.println("La charte a été créer avec succès");
+                boolean test = administrateur.ajouterCharte(chart);
+                if (test) {
+                    System.out.println("La charte a été ajouté avec succès !");
+                } else {
+                    System.out.println("Echec de l'ajout de la charte !");
+                }
+            } else {
+                System.out.println("Echec de création de la charte par liste !!");
+            }
         } else {
             System.out.println("Donner le numéro de la liste");
             numList = scanner.nextInt();
