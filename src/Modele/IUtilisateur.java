@@ -13,6 +13,8 @@ public interface IUtilisateur {
 
     ListeElectoriale chercherListe(int index);
 
-    Candidat chercherCandidat(int numListe,int cin);
+    Candidat chercherCandidat(int numListe, int cin);
+
+    Chart chercherCharte(Candidat candidat, int numListe);
 
 }

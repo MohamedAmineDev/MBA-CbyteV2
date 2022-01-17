@@ -324,14 +324,13 @@ public class MenuElecteur implements IMenuElecteur {
         cin = scanner.nextInt();
         Candidat candidat = administrateur.chercherCandidat(numListe, cin);
         if (candidat != null) {
-            for (Chart chart : charts
-            ) {
-                if (chart.getCandidat() != null) {
-                    if (chart.getCandidat().equals(candidat)) {
-                        System.out.println(chart);
-                    }
-                }
+            Chart chart = administrateur.chercherCharte(candidat, 0);
+            if (chart != null) {
+                System.out.println(chart);
+            } else {
+                System.out.println("Charte intouvable !");
             }
+
         } else {
             System.out.println("Candidat intouvable ! ");
         }

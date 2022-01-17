@@ -199,5 +199,16 @@ public abstract class Utilisateur implements IUtilisateur, Serializable {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+    @Override
+    public Chart chercherCharte(Candidat candidat, int numListe) {
+        for (Chart chart : charts
+        ) {
+            if (chart.getCandidat() == null && chart.getNumListe() == numListe) {
+                return chart;
+            }
+        }
+        return null;
+    }
 }
 

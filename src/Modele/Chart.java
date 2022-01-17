@@ -73,7 +73,7 @@ public class Chart implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Chart)) return false;
         Chart chart = (Chart) o;
-        return getId() == chart.getId() && numListe == chart.numListe && Objects.equals(getCandidat(), chart.getCandidat());
+        return getNumListe() == chart.getNumListe() && Objects.equals(getCandidat(), chart.getCandidat());
     }
 
     @Override
@@ -83,6 +83,6 @@ public class Chart implements Serializable {
 
     @Override
     public String toString() {
-        return "" + titre + " : " + resultat + "%";
+        return "" + titre + " : " + (resultat * 100) + "%";
     }
 }
