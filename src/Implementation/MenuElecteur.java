@@ -350,9 +350,15 @@ public class MenuElecteur implements IMenuElecteur {
         }
         while (numListe > administrateur.nombreDeListes());
         numListe--;
-        ListeElectoriale listeElectoriale = administrateur.chercherListe(numListe);
-        listeElectoriale.scoreDeLaListe();
+        /*ListeElectoriale listeElectoriale = administrateur.chercherListe(numListe);
+        listeElectoriale.scoreDeLaListe();*/
         //System.out.println(cli);
+        for (Chart chart : charts
+        ) {
+            if (chart.getNumListe() == numListe) {
+                System.out.println(chart);
+            }
+        }
     }
 
     @Override
