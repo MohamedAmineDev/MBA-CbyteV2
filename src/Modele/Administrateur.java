@@ -10,9 +10,6 @@ public class Administrateur extends Utilisateur implements IAdministrateur {
         super();
     }
 
-    public Administrateur(String userName, String password) {
-        super(userName, password);
-    }
 
 
     @Override

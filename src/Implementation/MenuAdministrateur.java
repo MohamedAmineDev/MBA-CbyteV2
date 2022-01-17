@@ -107,11 +107,16 @@ public class MenuAdministrateur implements IMenuAdministrateur {
         Candidat candidat = new Candidat();
         System.out.println("Donner un cin");
         candidat.setCin(scanner.nextInt());
+        scanner.nextLine();
         System.out.println("Donner un nom");
         scanner.nextLine();
         candidat.setNom(scanner.nextLine());
         System.out.println("Donner un prenom");
         candidat.setPrenom(scanner.nextLine());
+        System.out.println("Donner un nom d'utilisateur");
+        candidat.setUserName(scanner.nextLine());
+        System.out.println("Donner un mot de passe");
+        candidat.setPassword(scanner.nextLine());
         System.out.println("Donner votre compte facebook");
         candidat.setFacebook(scanner.nextLine());
         System.out.println("Donner votre compte tweeter");
@@ -577,7 +582,7 @@ public class MenuAdministrateur implements IMenuAdministrateur {
             choix = scanner.nextInt();
         }
         while (choix < 1 || choix > 2);
-        if(choix==2){
+        if (choix == 2) {
             menu();
         }
     }

@@ -8,12 +8,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class Utilisateur implements IUtilisateur, Serializable {
+public abstract class Utilisateur extends Compte implements IUtilisateur, Serializable {
     private static final long serialVersionUID = 1L;
     private static int dernierId;
     private int id;
-    private String userName;
-    private String password;
+
     private List<ListeElectoriale> listeElectorale;
     private HashSet<Chart> charts;
 
@@ -24,26 +23,6 @@ public abstract class Utilisateur implements IUtilisateur, Serializable {
         charts = new HashSet<>();
     }
 
-    public Utilisateur(String userName, String password) {
-        this.userName = userName;
-        this.password = password;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public List<ListeElectoriale> getListeElectorale() {
         return listeElectorale;
@@ -63,12 +42,7 @@ public abstract class Utilisateur implements IUtilisateur, Serializable {
 
     @Override
     public String toString() {
-        return "username=" + userName + ",password=" + password + "" + listeElectorale + "" + charts;
-    }
-
-    @Override
-    public boolean seAuthentifier(String email, String motDePasse) {
-        return false;
+        return super.toString() + "" + listeElectorale + "" + charts;
     }
 
     @Override

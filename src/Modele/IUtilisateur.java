@@ -3,7 +3,7 @@ package Modele;
 import java.util.List;
 
 public interface IUtilisateur {
-    boolean seAuthentifier(String email, String motDePasse);
+
 
     void consulterListeElectorales();
 

@@ -6,7 +6,7 @@ import Enumeration.Type;
 import java.io.Serializable;
 import java.util.*;
 
-public class Candidat implements ICandidat, Serializable, IUtilisateursP {
+public class Candidat extends Compte implements ICandidat, Serializable, IUtilisateursP {
     private static final long serialVersionUID = 1L;
     private int cin;
     private String nom;
@@ -22,6 +22,7 @@ public class Candidat implements ICandidat, Serializable, IUtilisateursP {
     private List<Reclamation> reclamations;
 
     public Candidat() {
+        super();
         this.activites = new HashMap<>();
         this.avis = new HashSet<>();
         this.reclamations = new ArrayList<>();
@@ -35,6 +36,7 @@ public class Candidat implements ICandidat, Serializable, IUtilisateursP {
     }
 
     public Candidat(int cin, String nom, String prenom, String dateNaissance, String photo, String nomPartie, String facebook, String tweeter) {
+        super();
         this.cin = cin;
         this.nom = nom;
         this.prenom = prenom;

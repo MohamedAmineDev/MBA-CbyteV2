@@ -2,6 +2,7 @@ package Main;
 
 import Enumeration.Support;
 import Enumeration.Type;
+import Implementation.Menu;
 import Implementation.MenuAdministrateur;
 import Implementation.MenuElecteur;
 import Modele.*;
@@ -29,7 +30,7 @@ public class Main {
         catch (Exception ex){
             System.out.println("Erreur !!!!");
         }*/
-        Administrateur administrateur = new Administrateur();
+        /*Administrateur administrateur = new Administrateur();
         Scanner scanner=new Scanner(System.in);
         Electeur electeur = new Electeur();
         electeur.setUserName("aminos");
@@ -53,6 +54,8 @@ public class Main {
         menuElecteur.setCharts(administrateur.getCharts());
         menuElecteur.setAdministrateur(administrateur);
         menuElecteur.application();
-        scanner.close();
+        scanner.close();*/
+        Menu menu=new Menu();
+        menu.applicationPrincipale();
     }
 }

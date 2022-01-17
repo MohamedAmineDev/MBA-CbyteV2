@@ -22,7 +22,7 @@ public class MenuCandidat implements IMenuCandidat {
         do {
             menu();
         }
-        while (reponse != 8);
+        while (reponse != 9);
     }
 
     @Override
@@ -35,7 +35,8 @@ public class MenuCandidat implements IMenuCandidat {
         System.out.println("5) Supprimer une reclamation");
         System.out.println("6) Consulter mes reclamations");
         System.out.println("7) Consulter la méthode de calcule du score");
-        System.out.println("8) Quitter l'application");
+        System.out.println("8) Changer de mot de passe");
+        System.out.println("9) Quitter l'application");
         reponse = this.scanner.nextInt();
         switch (reponse) {
             case 1:
@@ -61,6 +62,9 @@ public class MenuCandidat implements IMenuCandidat {
                 break;
             case 8:
                 choix8();
+                break;
+            case 9:
+                choix9();
                 break;
             default:
                 System.out.println("Vous devez choisir une des options du menu !!!! ");
@@ -176,6 +180,31 @@ public class MenuCandidat implements IMenuCandidat {
     public void choix8() {
         int choix = 0;
         do {
+            System.out.println("Voulez vous vraiment changer de mot de passe ?");
+            choix = scanner.nextInt();
+        }
+        while (choix < 1 || choix > 2);
+
+        if (choix == 1) {
+            String confirmationMotDePasse = new String();
+            scanner.nextLine();
+            boolean test = false;
+            do {
+                System.out.println("Donner le nouveau mot de passe");
+                candidat.setPassword(scanner.nextLine());
+                System.out.println("Retaper le nouveau mot de passe");
+                confirmationMotDePasse = scanner.nextLine();
+                test = candidat.getPassword().equalsIgnoreCase(confirmationMotDePasse);
+            }
+            while (test == false);
+            System.out.println("Le mot de passe a été changé avec succès ");
+        }
+    }
+
+    @Override
+    public void choix9() {
+        int choix = 0;
+        do {
             System.out.println("Voulez vous vraiment quitter l'application ?");
             System.out.println("1) Oui");
             System.out.println("2) Non");
@@ -197,11 +226,6 @@ public class MenuCandidat implements IMenuCandidat {
         } else {
             menu();
         }
-    }
-
-    @Override
-    public void choix9() {
-
     }
 
     @Override

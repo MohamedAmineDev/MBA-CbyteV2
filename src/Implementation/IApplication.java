@@ -1,5 +1,6 @@
 package Implementation;
 
+import Modele.Candidat;
 import Modele.Electeur;
 
 public interface IApplication {
@@ -11,5 +12,5 @@ public interface IApplication {
 
     void versionElecteur(Electeur electeur);
 
-    void versionCandidat();
+    void versionCandidat(Candidat candidat);
 }

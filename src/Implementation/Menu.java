@@ -1,6 +1,7 @@
 package Implementation;
 
 import Modele.Administrateur;
+import Modele.Candidat;
 import Modele.Electeur;
 import Modele.ListeElectoriale;
 
@@ -63,6 +64,7 @@ public class Menu implements IApplication {
         System.out.println("3) Compte candidat");
         System.out.println("4) Quitter l'application");
         reponse = scanner.nextInt();
+        scanner.nextLine();
         switch (reponse) {
             case 1:
                 System.out.println("Donner votre nom D'utilisateur");
@@ -90,6 +92,7 @@ public class Menu implements IApplication {
                         break;
                     }
                 }
+                System.out.println("Le nom d'utilisateur ou mot de passe sont faux !!!");
                 break;
             case 3:
                 versionCandidat();
@@ -159,8 +162,9 @@ public class Menu implements IApplication {
     }
 
     @Override
-    public void versionCandidat() {
+    public void versionCandidat(Candidat candidat) {
         menuCandidat.setScanner(scanner);
+        menuCandidat.setCandidat(candidat);
         menuCandidat.application();
     }
 
