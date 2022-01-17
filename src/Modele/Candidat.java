@@ -6,7 +6,7 @@ import Enumeration.Type;
 import java.io.Serializable;
 import java.util.*;
 
-public class Candidat implements ICandidat, Serializable {
+public class Candidat implements ICandidat, Serializable, IUtilisateursP {
     private static final long serialVersionUID = 1L;
     private int cin;
     private String nom;
@@ -151,7 +151,7 @@ public class Candidat implements ICandidat, Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getCin(), getNom(), getPrenom(), getDateNaissance(), getPhoto(), getNomPartie(), getFacebook(), getTweeter(), getActivites(), getScore(), getAvis(), getReclamations());
+        return Objects.hash(getCin());
     }
 
     @Override
@@ -284,14 +284,14 @@ public class Candidat implements ICandidat, Serializable {
                 Design.dessinerLigne(180);
             }
         } else {
-            System.out.println("La liste des activitées du candidat Monsieur " + nom + " est encore vide !");
+            System.out.println("La liste des activitées du candidat  " + nom + " " + prenom + " est encore vide !");
         }
     }
 
     @Override
     public boolean ajouterReclamation(Reclamation reclamation) {
         if (reclamation != null) {
-            reclamation.setCandidat(this);
+            reclamation.setCible(this);
             return this.reclamations.add(reclamation);
         }
         return false;
@@ -301,8 +301,19 @@ public class Candidat implements ICandidat, Serializable {
     public boolean modifierReclamation(Reclamation reclamation) {
         if (reclamation != null) {
             if (this.reclamations.contains(reclamation) == true) {
-                this.reclamations.remove(reclamation);
-                return this.reclamations.add(reclamation);
+                /*this.reclamations.remove(reclamation);
+                return this.reclamations.add(reclamation);*/
+                int index = reclamations.indexOf(reclamation);
+                if (index > -1) {
+                    Reclamation r = this.reclamations.set(index, reclamation);
+                    if (r != null) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
             }
         }
         return false;
@@ -319,21 +330,29 @@ public class Candidat implements ICandidat, Serializable {
     @Override
     public void consulterReclamation() {
         if (!reclamations.isEmpty()) {
-            Design.dessinerLigne(180);
             String[] tab = new String[4];
             tab[0] = " Id |";
-            tab[1] = " Sujet |";
+            tab[1] = " Sujet                  |";
             tab[2] = " Réclamé par            |";
             tab[3] = " Justfication ";
+            System.out.println("La liste des reclamations concernant le candidat  " + nom + " " + prenom + " :\n");
+            Design.dessinerLigne(180);
             System.out.println(tab[0] + tab[1] + tab[2] + tab[3]);
             Design.dessinerLigne(180);
             for (Reclamation reclamation : reclamations
             ) {
-                System.out.println("La liste des reclamations concernant le candidat Monsieur " + nom + " :");
+
                 String[] ts = new String[4];
                 ts[0] = " " + reclamation.getId() + "";
                 ts[1] = " " + reclamation.getSujet() + "";
-                ts[2] = " " + reclamation.getElecteur().getUserName();
+                try {
+                    Electeur e = (Electeur) reclamation.getAuteur();
+                    ts[2] = " " + e.getUserName();
+                } catch (Exception e) {
+                    Candidat c = (Candidat) reclamation.getAuteur();
+                    ts[2] = " " + c.nom;
+                }
+                //ts[2] = " " + reclamation.getElecteur().getUserName();
                 ts[3] = " " + reclamation.getJustification();
                 int i;
                 int j = 0;
@@ -391,7 +410,7 @@ public class Candidat implements ICandidat, Serializable {
     @Override
     public void consulterAvis() {
         if (!this.avis.isEmpty()) {
-            System.out.println("La liste des avis des electeurs concernant le candidat Monsieur " + nom + " :");
+            System.out.println("La liste des avis des electeurs concernant le candidat  " + nom + " " + prenom + " :");
             Design.dessinerLigne(180);
             String[] tab = new String[4];
             tab[0] = " Id |";
@@ -427,6 +446,52 @@ public class Candidat implements ICandidat, Serializable {
                 //System.out.println(ts[0] + ts[1] + ts[2] + ts[3]);
                 Design.dessinerCases(ts, ts.length);
                 Design.dessinerLigne(180);
+            }
+        } else {
+            System.out.println("La liste des avis concerant le condidat Monsieur " + nom + " est vide !");
+        }
+
+    }
+
+    public void consulterAvis(Electeur electeur) {
+        if (!this.avis.isEmpty()) {
+            System.out.println("Voici ton avis  concernant le candidat " + nom + " " + prenom + " :");
+            Design.dessinerLigne(180);
+            String[] tab = new String[4];
+            tab[0] = " Id |";
+            tab[1] = " Note sur 100 |";
+            tab[2] = " Noté par                     |";
+            tab[3] = " Nom Candidat        ";
+            System.out.println(tab[0] + tab[1] + tab[2] + tab[3]);
+            Design.dessinerLigne(180);
+            for (Avis avis : this.avis
+            ) {
+                if (avis.getElecteur().equals(electeur)) {
+                    String[] ts = new String[4];
+                    ts[0] = " " + avis.getId() + "";
+                    ts[1] = " " + avis.getNote() + "";
+                    ts[2] = " " + avis.getElecteur().getUserName() + "";
+                    ts[3] = " " + this.nom;
+                    int i;
+                    int j = 0;
+                    while (j < 4) {
+                        i = tab[j].length() - ts[j].length();
+                        i--;
+                        if (i > 0) {
+                            while (i > 0) {
+                                ts[j] = ts[j] + " ";
+                                i--;
+                            }
+                        }
+                        if (j < 3) {
+                            ts[j] = ts[j] + "|";
+                        }
+                        j++;
+                    }
+                    //System.out.println(ts[0] + ts[1] + ts[2] + ts[3]);
+                    Design.dessinerCases(ts, ts.length);
+                    Design.dessinerLigne(180);
+                }
             }
         } else {
             System.out.println("La liste des avis concerant le condidat Monsieur " + nom + " est vide !");

@@ -7,9 +7,8 @@ public class Reclamation implements Serializable {
     private static final long serialVersionUID = 1L;
     private static int dernierId;
     private int id;
-    private Administrateur administrateur;
-    private Electeur electeur;
-    private Candidat candidat;
+    private IUtilisateursP auteur;
+    private IUtilisateursP cible;
     private String sujet;
     private String justification;
 
@@ -23,6 +22,7 @@ public class Reclamation implements Serializable {
         id = dernierId;
         this.sujet = sujet;
         this.justification = justification;
+
     }
 
     public static int getDernierId() {
@@ -41,21 +41,6 @@ public class Reclamation implements Serializable {
         this.id = id;
     }
 
-    public Administrateur getAdministrateur() {
-        return administrateur;
-    }
-
-    public void setAdministrateur(Administrateur administrateur) {
-        this.administrateur = administrateur;
-    }
-
-    public Electeur getElecteur() {
-        return electeur;
-    }
-
-    public void setElecteur(Electeur electeur) {
-        this.electeur = electeur;
-    }
 
     public String getSujet() {
         return sujet;
@@ -73,12 +58,20 @@ public class Reclamation implements Serializable {
         this.justification = justification;
     }
 
-    public Candidat getCandidat() {
-        return candidat;
+    public IUtilisateursP getAuteur() {
+        return auteur;
     }
 
-    public void setCandidat(Candidat candidat) {
-        this.candidat = candidat;
+    public void setAuteur(IUtilisateursP auteur) {
+        this.auteur = auteur;
+    }
+
+    public IUtilisateursP getCible() {
+        return cible;
+    }
+
+    public void setCible(IUtilisateursP cible) {
+        this.cible = cible;
     }
 
     @Override

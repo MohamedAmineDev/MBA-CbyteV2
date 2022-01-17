@@ -20,7 +20,7 @@ public class MenuAdministrateur implements IMenuAdministrateur {
 
     public MenuAdministrateur() {
         administrateur = new Administrateur();
-        scanner = new Scanner(System.in);
+        //scanner = new Scanner(System.in);
         reponse = 0;
         electeurs = new ArrayList<>();
         manipulationDeDonnes = new ManipulationDeDonnes();
@@ -36,7 +36,7 @@ public class MenuAdministrateur implements IMenuAdministrateur {
             menu();
         }
         while (reponse != 11);
-        scanner.close();
+        //scanner.close();
     }
 
     @Override
@@ -421,8 +421,12 @@ public class MenuAdministrateur implements IMenuAdministrateur {
         while (choix < 1 || choix > 2);
         int numList = 0;
         if (choix == 1) {
-            System.out.println("Donner le numéro de la liste");
-            numList = scanner.nextInt();
+            do {
+                System.out.println("Vous avez " + administrateur.nombreDeListes() + " listes a utiliser");
+                System.out.println("Donner le numéro de la liste");
+                numList = scanner.nextInt();
+            }
+            while (numList > administrateur.nombreDeListes());
             numList--;
             ListeElectoriale listeElectoriale = administrateur.chercherListe(numList);
             Chart chart = administrateur.chartScoreParListeElectoriale(numList, electeurs);
@@ -438,8 +442,14 @@ public class MenuAdministrateur implements IMenuAdministrateur {
                 System.out.println("Echec de création de la charte par liste !!");
             }
         } else {
-            System.out.println("Donner le numéro de la liste");
-            numList = scanner.nextInt();
+            administrateur.consulterListeElectorales();
+            do {
+                System.out.println("Vous avez " + administrateur.nombreDeListes() + " listes a utiliser");
+                System.out.println("Donner le numéro de la liste");
+                numList = scanner.nextInt();
+            }
+            while (numList > administrateur.nombreDeListes());
+            numList--;
             System.out.println("Donner le cin du candidat");
             int cin = scanner.nextInt();
             Candidat candidat = administrateur.chercherCandidat(numList, cin);
@@ -567,26 +577,7 @@ public class MenuAdministrateur implements IMenuAdministrateur {
             choix = scanner.nextInt();
         }
         while (choix < 1 || choix > 2);
-        if (choix == 1) {
-            do {
-                System.out.println("Voulez vous sauvegarder vos données ?");
-                System.out.println("1) Oui");
-                System.out.println("2) Non");
-                choix = scanner.nextInt();
-            }
-            while (choix < 1 || choix > 2);
-            if (choix == 1) {
-                boolean test;
-                for (ListeElectoriale liste : administrateur.getListeElectorale()
-                ) {
-                    test = manipulationDeDonnes.sauvegarderListeElectoriale("listeselectoriales.datas", liste);
-                    if (test == false) {
-                        System.out.println("Une erreur c'est produit !!!!!");
-                        break;
-                    }
-                }
-            }
-        } else {
+        if(choix==2){
             menu();
         }
     }

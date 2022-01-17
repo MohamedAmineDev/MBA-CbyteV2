@@ -4,6 +4,7 @@ import Donnees.ManipulationDeDonnes;
 import Modele.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,15 +16,16 @@ public class MenuElecteur implements IMenuElecteur {
     //private List<Electeur> electeurs;
     private Electeur electeur;
     private ManipulationDeDonnes manipulationDeDonnes;
-    private List<Chart> charts;
+    private HashSet<Chart> charts;
 
     public MenuElecteur() {
         administrateur = new Administrateur();
-        scanner = new Scanner(System.in);
+        //scanner = new Scanner(System.in);
         reponse = 0;
         //electeurs = new ArrayList<>();
         electeur = new Electeur();
         manipulationDeDonnes = new ManipulationDeDonnes();
+        charts = new HashSet<>();
     }
 
     @Override
@@ -32,7 +34,7 @@ public class MenuElecteur implements IMenuElecteur {
             menu();
         }
         while (reponse != 13);
-        scanner.close();
+        // scanner.close();
     }
 
 
@@ -47,9 +49,9 @@ public class MenuElecteur implements IMenuElecteur {
         System.out.println("6) Supprimer un avis sur un candidat");
         System.out.println("7) Consulter une charte par client");
         System.out.println("8) Consulter une charte par liste electoriale");
-        System.out.println("9) Consulter les reclamations de chaque client");
-        System.out.println("10) Ajouter une reclamation concernant un client");
-        System.out.println("11) Modifier une reclamation concernant un client");
+        System.out.println("9) Consulter les reclamations d'un candidat");
+        System.out.println("10) Ajouter une reclamation concernant un candidat");
+        System.out.println("11) Modifier une reclamation concernant un candidat");
         System.out.println("12) Supprimer s'a  reclamation sur un candidat");
         System.out.println("13) Quitter l'application");
         /*
@@ -92,10 +94,10 @@ public class MenuElecteur implements IMenuElecteur {
                 choix11();
                 break;
             case 12:
-                //choix11();
+                choix12();
                 break;
             case 13:
-                //choix11();
+                choix13();
                 break;
             default:
                 System.out.println("Vous devez choisir une des options du menu !!!! ");
@@ -119,6 +121,7 @@ public class MenuElecteur implements IMenuElecteur {
         while (numListe > administrateur.nombreDeListes());
         numListe--;
         ListeElectoriale listeElectoriale = administrateur.chercherListe(numListe);
+        listeElectoriale.consulterCandidats();
     }
 
     @Override
@@ -141,8 +144,10 @@ public class MenuElecteur implements IMenuElecteur {
             candidat.afficherCandidat();
             //System.out.println("Liste des activité");
             candidat.consulterActivites();
+            System.out.println("");
             //System.out.println("Liste des reclamations");
             candidat.consulterAvis();
+            System.out.println("");
         } else {
             System.out.println("Candidat introuvable !");
         }
@@ -169,9 +174,9 @@ public class MenuElecteur implements IMenuElecteur {
             //avis.getCandidat();
             boolean test = false;
             do {
-                System.out.println("Donner la note que vous allez attribuer a cet canidat");
+                System.out.println("Donner la note que vous allez attribuer a cet candidat");
                 avis.setNote(scanner.nextDouble());
-                if (avis.getNote() >= 0 || avis.getNote() <= 100) {
+                if (avis.getNote() >= 0 && avis.getNote() <= 100) {
                     test = true;
                 } else {
                     System.out.println("La note doit etre entre 0 et 100 !!!");
@@ -196,6 +201,7 @@ public class MenuElecteur implements IMenuElecteur {
         int choix = 0;
         do {
             System.out.println("Voulez vous vraiemnt modifier un avis ?");
+            choix = scanner.nextInt();
         }
         while (choix < 1 || choix > 2);
         if (choix == 1) {
@@ -252,10 +258,11 @@ public class MenuElecteur implements IMenuElecteur {
 
     @Override
     public void choix6() {
-        System.out.println("6) Supprimer un avis sur un candidat");
+        //System.out.println("6) Supprimer un avis sur un candidat");
         int choix = 0;
         do {
-            System.out.println("Voulez vous vraiemnt modifier un avis ?");
+            System.out.println("Voulez vous vraiemnt supprimer un avis ?");
+            choix = scanner.nextInt();
         }
         while (choix < 1 || choix > 2);
         if (choix == 1) {
@@ -275,24 +282,14 @@ public class MenuElecteur implements IMenuElecteur {
             if (candidat != null) {
                 int idAvis = 0;
                 do {
-                    candidat.consulterAvis();
-                    System.out.println("Donner l'id de l'avis que vous voulez supprime ");
+                    candidat.consulterAvis(electeur);
+                    System.out.println("Donner l'id de l'avis que vous voulez supprimer ");
                     idAvis = scanner.nextInt();
                 }
                 while (idAvis > candidat.getAvis().size());
                 Avis avis = candidat.chercherActivite(idAvis);
                 boolean test = false;
                 if (avis != null) {
-                    do {
-                        System.out.println("Donner la note que vous allez attribuer a cet candidat");
-                        avis.setNote(scanner.nextDouble());
-                        if (avis.getNote() >= 0 || avis.getNote() <= 100) {
-                            test = true;
-                        } else {
-                            System.out.println("La note doit etre entre 0 et 100 !!!");
-                        }
-                    }
-                    while (test == false);
                     test = candidat.supprimerAvis(avis);
                     if (test) {
                         System.out.println("Avis supprimé avec succès !");
@@ -329,8 +326,10 @@ public class MenuElecteur implements IMenuElecteur {
         if (candidat != null) {
             for (Chart chart : charts
             ) {
-                if (chart.getCandidat().equals(candidat)) {
-                    System.out.println(chart);
+                if (chart.getCandidat() != null) {
+                    if (chart.getCandidat().equals(candidat)) {
+                        System.out.println(chart);
+                    }
                 }
             }
         } else {
@@ -363,17 +362,171 @@ public class MenuElecteur implements IMenuElecteur {
 
     @Override
     public void choix9() {
+        // System.out.println("9) Consulter les reclamations d'un candidat");
+        administrateur.consulterListeElectorales();
+        int numListe = 0;
+        do {
+            //System.out.println("Vous avez " + administrateur.nombreDeListes() + " listes a utiliser");
+            System.out.println("Donner le numéro de la liste dans la quelle le candidat que vous chercher appartient");
+            numListe = scanner.nextInt();
+        }
+        while (numListe > administrateur.nombreDeListes());
+        numListe--;
+        int cin = 0;
+        System.out.println("Donner le cin du candidat ");
+        cin = scanner.nextInt();
+        Candidat candidat = administrateur.chercherCandidat(numListe, cin);
+        if (candidat != null) {
+            candidat.consulterReclamation();
+        } else {
+            System.out.println("Candidat introuvable !!");
+        }
 
     }
 
     @Override
     public void choix10() {
+        //System.out.println("10) Ajouter une reclamation concernant un candidat");
+        administrateur.consulterListeElectorales();
+        int numListe = 0;
+        do {
+            //System.out.println("Vous avez " + administrateur.nombreDeListes() + " listes a utiliser");
+            System.out.println("Donner le numéro de la liste dans la quelle le candidat que vous chercher appartient");
+            numListe = scanner.nextInt();
+        }
+        while (numListe > administrateur.nombreDeListes());
+        numListe--;
+        int cin = 0;
+        System.out.println("Donner le cin du candidat ");
+        cin = scanner.nextInt();
+        Candidat candidat = administrateur.chercherCandidat(numListe, cin);
+        if (candidat != null) {
+            Reclamation reclamation = new Reclamation();
+            //reclamation.getJustification();
+            //reclamation.getSujet();
+            scanner.nextLine();
+            System.out.println("Donner le sujet de la reclamation");
+            reclamation.setSujet(scanner.nextLine());
+            System.out.println("Donner une justification");
+            reclamation.setJustification(scanner.nextLine());
+            reclamation.setAuteur(electeur);
+            boolean test = candidat.ajouterReclamation(reclamation);
+            if (test) {
+                System.out.println("La reclamation a été ajouté avec succès");
+            } else {
+                System.out.println("Echec de l'ajout de la reclamation ");
+            }
 
+        } else {
+            System.out.println("Candidat introuvable !");
+        }
     }
 
     @Override
     public void choix11() {
+        //System.out.println("11) Modifier une reclamation concernant un candidat");
+        administrateur.consulterListeElectorales();
+        int numListe = 0;
+        do {
+            //System.out.println("Vous avez " + administrateur.nombreDeListes() + " listes a utiliser");
+            System.out.println("Donner le numéro de la liste dans la quelle le candidat que vous chercher appartient");
+            numListe = scanner.nextInt();
+        }
+        while (numListe > administrateur.nombreDeListes());
+        numListe--;
+        int cin = 0;
+        System.out.println("Donner le cin du candidat ");
+        cin = scanner.nextInt();
+        Candidat candidat = administrateur.chercherCandidat(numListe, cin);
+        if (candidat != null) {
+            candidat.consulterReclamation();
+            int idReclamation = 0;
+            System.out.println("Donner l'id de la reclamation que vous voulez modifier ");
+            idReclamation = scanner.nextInt();
+            Reclamation reclamation = candidat.chercherReclamation(idReclamation);
+            if (reclamation != null) {
+                scanner.nextLine();
+                System.out.println("Donner le nouveau sujet de la reclamation");
+                reclamation.setSujet(scanner.nextLine());
+                System.out.println("Donner une nouvelle justification");
+                reclamation.setJustification(scanner.nextLine());
+                reclamation.setAuteur(electeur);
+                boolean test = candidat.modifierReclamation(reclamation);
+                if (test) {
+                    System.out.println("La reclamation a été modifié avec succès");
+                } else {
+                    System.out.println("Echec de la modification de la reclamation ");
+                }
+            } else {
+                System.out.println("Reclamation introuvable !!");
+            }
 
+        } else {
+            System.out.println("Candidat introuvable !");
+        }
+
+    }
+
+    @Override
+    public void choix12() {
+        //System.out.println("12) Supprimer s'a  reclamation sur un candidat");
+        administrateur.consulterListeElectorales();
+        int numListe = 0;
+        do {
+            System.out.println("Donner le numéro de la liste dans la quelle le candidat que vous chercher appartient");
+            numListe = scanner.nextInt();
+        }
+        while (numListe > administrateur.nombreDeListes());
+        System.out.println("Donner le cin du candidat");
+        int cin = scanner.nextInt();
+        numListe--;
+        Candidat candidat = administrateur.chercherCandidat(numListe, cin);
+        if (candidat != null) {
+            candidat.consulterReclamation();
+            int numReclamation = 0;
+            System.out.println("Donner l'id du reclamation");
+            numReclamation = scanner.nextInt();
+            Reclamation reclamation = candidat.chercherReclamation(numReclamation);
+            if (reclamation != null) {
+                boolean test = candidat.supprimerReclamation(reclamation);
+                if (test) {
+                    System.out.println("Suppression de la reclamation est un succès ");
+                } else {
+                    System.out.println("Echec de la suppression !");
+                }
+            }
+        } else {
+            System.out.println("Candidat introuvable !");
+
+        }
+    }
+
+    @Override
+    public void choix13() {
+        //System.out.println("13) Quitter l'application");
+        int choix = 0;
+        do {
+            System.out.println("Voulez vous vraiment quitter l'application ?");
+            System.out.println("1) Oui");
+            System.out.println("2) Non");
+            choix = scanner.nextInt();
+        }
+        while (choix < 1 || choix > 2);
+        if (choix == 1) {
+            do {
+                System.out.println("Voulez vous sauvegarder vos données ?");
+                System.out.println("1) Oui");
+                System.out.println("2) Non");
+                choix = scanner.nextInt();
+            }
+            while (choix < 1 || choix > 2);
+            if (choix == 1) {
+                boolean test;
+
+            }
+        } else {
+            menu();
+        }
     }
 
     public Administrateur getAdministrateur() {
@@ -416,11 +569,11 @@ public class MenuElecteur implements IMenuElecteur {
         this.manipulationDeDonnes = manipulationDeDonnes;
     }
 
-    public List<Chart> getCharts() {
+    public HashSet<Chart> getCharts() {
         return charts;
     }
 
-    public void setCharts(List<Chart> charts) {
+    public void setCharts(HashSet<Chart> charts) {
         this.charts = charts;
     }
 }
