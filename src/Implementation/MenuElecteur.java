@@ -351,11 +351,15 @@ public class MenuElecteur implements IMenuElecteur {
         /*ListeElectoriale listeElectoriale = administrateur.chercherListe(numListe);
         listeElectoriale.scoreDeLaListe();*/
         //System.out.println(cli);
-        for (Chart chart : charts
-        ) {
-            if (chart.getNumListe() == numListe) {
-                System.out.println(chart);
+        if (!charts.isEmpty()) {
+            for (Chart chart : charts
+            ) {
+                if (chart.getNumListe() == numListe) {
+                    System.out.println(chart);
+                }
             }
+        } else {
+            System.out.println("La liste des chartes est vides !!");
         }
     }
 

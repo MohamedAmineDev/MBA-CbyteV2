@@ -72,9 +72,7 @@ public class Menu implements IApplication {
                 System.out.println("Donner votre mot de passe");
                 password = scanner.nextLine();
                 if (administrateur.getUserName().equalsIgnoreCase(username) == true && administrateur.getPassword().equalsIgnoreCase(password) == true) {
-                    menuAdministrateur.setAdministrateur(administrateur);
                     versionAdministrateur();
-                    administrateur = menuAdministrateur.getAdministrateur();
                 } else {
                     System.out.println("Le nom d'utilisateur ou mot de passe sont faux !!!");
                 }
@@ -88,16 +86,27 @@ public class Menu implements IApplication {
                 ) {
                     if (electeur.getUserName().equalsIgnoreCase(username) == true && electeur.getPassword().equalsIgnoreCase(password) == true) {
                         versionElecteur(electeur);
-                        administrateur = menuElecteur.getAdministrateur();
                         break;
                     }
                 }
                 System.out.println("Le nom d'utilisateur ou mot de passe sont faux !!!");
                 break;
             case 3:
-                versionCandidat();
-                administrateur = menuCandidat.getAdministrateur();
-                break;
+                System.out.println("Donner votre nom D'utilisateur");
+                username = scanner.nextLine();
+                System.out.println("Donner votre mot de passe");
+                password = scanner.nextLine();
+                for (ListeElectoriale listes : administrateur.getListeElectorale()
+                ) {
+                    for (Candidat candidat : listes.getCandidatList()
+                    ) {
+                        if (candidat.getUserName().equalsIgnoreCase(username) == true && candidat.getPassword().equalsIgnoreCase(password) == true) {
+                            versionCandidat(candidat);
+                            break;
+                        }
+                    }
+                }
+
             case 4:
                 do {
                     System.out.println("Voulez vous vraiment quitter l'application ?");
@@ -150,22 +159,29 @@ public class Menu implements IApplication {
 
     @Override
     public void versionAdministrateur() {
+        menuAdministrateur.setAdministrateur(administrateur);
         menuAdministrateur.setScanner(scanner);
         menuAdministrateur.application();
+        administrateur = menuAdministrateur.getAdministrateur();
     }
 
     @Override
     public void versionElecteur(Electeur electeur) {
         menuElecteur.setScanner(scanner);
         menuElecteur.setElecteur(electeur);
+        menuElecteur.setAdministrateur(administrateur);
+        menuElecteur.setCharts(administrateur.getCharts());
         menuElecteur.application();
+        administrateur = menuElecteur.getAdministrateur();
     }
 
     @Override
     public void versionCandidat(Candidat candidat) {
         menuCandidat.setScanner(scanner);
         menuCandidat.setCandidat(candidat);
+        menuCandidat.setAdministrateur(administrateur);
         menuCandidat.application();
+        administrateur = menuCandidat.getAdministrateur();
     }
 
     public int getReponse() {

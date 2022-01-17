@@ -109,7 +109,6 @@ public class MenuAdministrateur implements IMenuAdministrateur {
         candidat.setCin(scanner.nextInt());
         scanner.nextLine();
         System.out.println("Donner un nom");
-        scanner.nextLine();
         candidat.setNom(scanner.nextLine());
         System.out.println("Donner un prenom");
         candidat.setPrenom(scanner.nextLine());
@@ -251,10 +250,13 @@ public class MenuAdministrateur implements IMenuAdministrateur {
         Candidat candidat = administrateur.chercherCandidat(numListe, cin);
         if (candidat != null) {
             candidat.afficherCandidat();
+            System.out.println("");
             //System.out.println("Liste des activité");
             candidat.consulterActivites();
+            System.out.println("");
             //System.out.println("Liste des reclamations");
             candidat.consulterAvis();
+            System.out.println("");
         } else {
             System.out.println("Candidat introuvable !");
         }
@@ -285,54 +287,122 @@ public class MenuAdministrateur implements IMenuAdministrateur {
             }
             while (rep < 1 || rep > 2);
             ///modification candidat
-            System.out.println("Donner un nouveau nom");
-            scanner.nextLine();
-            candidat.setNom(scanner.nextLine());
-            System.out.println("Donner un nouveau prenom");
-            candidat.setPrenom(scanner.nextLine());
-            System.out.println("Donner un nouveau compte facebook");
-            candidat.setFacebook(scanner.nextLine());
-            System.out.println("Donner un nouveau compte tweeter");
-            candidat.setTweeter(scanner.nextLine());
-            System.out.println("Donner une nouvelle  photo");
-            candidat.setPhoto(scanner.nextLine());
-            System.out.println("Donner un nouveau nom de la partie");
-            candidat.setNomPartie(scanner.nextLine());
-            for (Map.Entry activite : candidat.getActivites().entrySet()
-            ) {
-                int k;
-                System.out.println("Donner une nouvelle durée");
-                Activite activite1 = (Activite) activite.getValue();
-                activite1.setDuree(scanner.nextFloat());
-                do {
-                    System.out.println("Quelle support le candidat a utilisé ?");
-                    System.out.println("1) Video");
-                    System.out.println("2) Photos");
-                    System.out.println("3) Liens");
-                    System.out.println("4) Texte");
-                    System.out.println("5) Papiers");
-                    k = scanner.nextInt();
-                    switch (k) {
-                        case 1:
-                            activite1.setSupport(Support.VIDEO);
-                            break;
-                        case 2:
-                            activite1.setSupport(Support.PHOTOS);
-                            break;
-                        case 3:
-                            activite1.setSupport(Support.LIENS);
-                            break;
-                        case 4:
-                            activite1.setSupport(Support.TEXTE);
-                            break;
-                        case 5:
-                            activite1.setSupport(Support.PAPIERS);
-                            break;
-                        default:
-                            System.out.println("Vous devez choisir l'un de ces 5 support !!!!!");
+            do {
+                System.out.println("Voulez vous modifier ce nom ? (" + candidat.getNom() + ")");
+                System.out.println("1) Oui");
+                System.out.println("2) Non");
+                rep = scanner.nextInt();
+            }
+            while (rep < 1 || rep > 2);
+
+            if (rep == 1) {
+                scanner.nextLine();
+                System.out.println("Donner un nouveau nom");
+                candidat.setNom(scanner.nextLine());
+            }
+            do {
+                System.out.println("Voulez vous modifier ce prenom ? (" + candidat.getPrenom() + ")");
+                System.out.println("1) Oui");
+                System.out.println("2) Non");
+                rep = scanner.nextInt();
+            }
+            while (rep < 1 || rep > 2);
+            if (rep == 1) {
+                scanner.nextLine();
+                System.out.println("Donner un nouveau prenom");
+                candidat.setPrenom(scanner.nextLine());
+            }
+            do {
+                System.out.println("Voulez vous modifier ce compte facebook ? (" + candidat.getFacebook() + ")");
+                System.out.println("1) Oui");
+                System.out.println("2) Non");
+                rep = scanner.nextInt();
+            }
+            while (rep < 1 || rep > 2);
+            if (rep == 1) {
+                scanner.nextLine();
+                System.out.println("Donner un nouveau compte facebook");
+                candidat.setFacebook(scanner.nextLine());
+            }
+            do {
+                System.out.println("Voulez vous modifier ce compte tweeter ? (" + candidat.getTweeter() + ")");
+                System.out.println("1) Oui");
+                System.out.println("2) Non");
+                rep = scanner.nextInt();
+            }
+            while (rep < 1 || rep > 2);
+            if (rep == 1) {
+                scanner.nextLine();
+                System.out.println("Donner un nouveau compte tweeter");
+                candidat.setTweeter(scanner.nextLine());
+            }
+            do {
+                System.out.println("Voulez vous modifier cette photo ? (" + candidat.getPhoto() + ")");
+                System.out.println("1) Oui");
+                System.out.println("2) Non");
+                rep = scanner.nextInt();
+            }
+            while (rep < 1 || rep > 2);
+            if (rep == 1) {
+                scanner.nextLine();
+                System.out.println("Donner une nouvelle  photo");
+                candidat.setPhoto(scanner.nextLine());
+            }
+            do {
+                System.out.println("Voulez vous modifier ce nom de partie ? (" + candidat.getNomPartie() + ")");
+                System.out.println("1) Oui");
+                System.out.println("2) Non");
+                rep = scanner.nextInt();
+            }
+            while (rep < 1 || rep > 2);
+            if (rep == 1) {
+                scanner.nextLine();
+                System.out.println("Donner un nouveau nom de la partie");
+                candidat.setNomPartie(scanner.nextLine());
+            }
+            do {
+                System.out.println("Voulez vous modifier les activités du candidat ?");
+                System.out.println("1) Oui");
+                System.out.println("2) Non");
+                rep = scanner.nextInt();
+            }
+            while (rep < 1 || rep > 2);
+            if (rep == 1) {
+                for (Map.Entry activite : candidat.getActivites().entrySet()
+                ) {
+                    int k;
+                    System.out.println("Donner une nouvelle durée");
+                    Activite activite1 = (Activite) activite.getValue();
+                    activite1.setDuree(scanner.nextFloat());
+                    do {
+                        System.out.println("Quelle support le candidat a utilisé ?");
+                        System.out.println("1) Video");
+                        System.out.println("2) Photos");
+                        System.out.println("3) Liens");
+                        System.out.println("4) Texte");
+                        System.out.println("5) Papiers");
+                        k = scanner.nextInt();
+                        switch (k) {
+                            case 1:
+                                activite1.setSupport(Support.VIDEO);
+                                break;
+                            case 2:
+                                activite1.setSupport(Support.PHOTOS);
+                                break;
+                            case 3:
+                                activite1.setSupport(Support.LIENS);
+                                break;
+                            case 4:
+                                activite1.setSupport(Support.TEXTE);
+                                break;
+                            case 5:
+                                activite1.setSupport(Support.PAPIERS);
+                                break;
+                            default:
+                                System.out.println("Vous devez choisir l'un de ces 5 support !!!!!");
+                        }
                     }
-                }
-                while (k < 1 || k > 5);
+                    while (k < 1 || k > 5);
 //                Type type = (Type) activite.getKey();
 //                do {
 //                    System.out.println("Quelle type d'acitivité le candidat pratique ?");
@@ -368,19 +438,107 @@ public class MenuAdministrateur implements IMenuAdministrateur {
 //                    }
 //                }
 //                while (k < 1 || k > 6);
-                Type type = (Type) activite.getKey();
-                boolean test = candidat.modifierActivite(type, activite1);
-                if (test) {
-                    System.out.println("Activité modifier avec succès !");
-                } else {
-                    System.out.println("Echec de modification de l'activité");
-                }
-                do {
-                    System.out.println("Voulez vous ajouter d'autre activité a ce candidat ?");
-                    k = scanner.nextInt();
-                }
-                while (k < 1 || k > 2);
+                    Type type = (Type) activite.getKey();
+                    boolean test = candidat.modifierActivite(type, activite1);
+                    if (test) {
+                        System.out.println("Activité modifier avec succès !");
+                    } else {
+                        System.out.println("Echec de modification de l'activité");
+                    }
 
+                }
+            }
+            do {
+                System.out.println("Voulez vous ajouter de nouvelles activités a ce candidat ?");
+                System.out.println("1) Oui");
+                System.out.println("2) Non");
+                rep = scanner.nextInt();
+            }
+            while (rep < 1 || rep > 2);
+            if (rep == 1) {
+                System.out.println("Donner le nombre d'activités que vous voulez ajouter");
+                rep = scanner.nextInt();
+                int i = 0;
+                int choix = 0;
+                while (i < rep) {
+                    Activite activite = new Activite();
+                    System.out.println("Donner durée");
+                    activite.setDuree(scanner.nextFloat());
+                    ///Saisie de support
+                    do {
+                        System.out.println("Quelle support le candidat a utilisé ?");
+                        System.out.println("1) Video");
+                        System.out.println("2) Photos");
+                        System.out.println("3) Liens");
+                        System.out.println("4) Texte");
+                        System.out.println("5) Papiers");
+                        choix = scanner.nextInt();
+                        switch (choix) {
+                            case 1:
+                                activite.setSupport(Support.VIDEO);
+                                break;
+                            case 2:
+                                activite.setSupport(Support.PHOTOS);
+                                break;
+                            case 3:
+                                activite.setSupport(Support.LIENS);
+                                break;
+                            case 4:
+                                activite.setSupport(Support.TEXTE);
+                                break;
+                            case 5:
+                                activite.setSupport(Support.PAPIERS);
+                                break;
+                            default:
+                                System.out.println("Vous devez choisir l'un de ces 5 support !!!!!");
+                        }
+                    }
+                    while (choix < 1 || choix > 5);
+                    ///Saisie type activité
+                    Type type = Type.AUTRE;
+                    do {
+                        System.out.println("Quelle type d'acitivité le candidat pratique ?");
+                        System.out.println("1) Scientifique");
+                        System.out.println("2) Politique");
+                        System.out.println("3) Economique");
+                        System.out.println("4) Sociale");
+                        System.out.println("5) Humanitaire");
+                        System.out.println("6) Autre");
+                        choix = scanner.nextInt();
+                        switch (choix) {
+                            case 1:
+                                type = Type.SCIENTIFIQUE;
+                                break;
+                            case 2:
+                                type = Type.POLITIQUE;
+                                break;
+                            case 3:
+                                type = Type.ECONOMIQUE;
+                                break;
+                            case 4:
+                                type = Type.SOCIALE;
+                                break;
+                            case 5:
+                                type = Type.HUMANITAIRE;
+                                break;
+                            case 6:
+                                type = Type.AUTRE;
+                                break;
+                            default:
+                                System.out.println("Vous devez choisir l'un de ces 5 support !!!!!");
+                        }
+                    }
+                    while (choix < 1 || choix > 6);
+                    boolean test;
+                    test = candidat.ajouterActivite(type, activite);
+                    if (test) {
+                        System.out.println("L'activité a été ajouté avec succès !");
+                    } else {
+                        System.out.println("Echec de l'ajout !");
+                    }
+                    i++;
+
+                }
             }
             boolean test = administrateur.modifierCandidat(numListe, candidat);
             if (test) {
