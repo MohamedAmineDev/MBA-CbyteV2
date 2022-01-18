@@ -24,7 +24,6 @@ public class MenuElecteur implements IMenuElecteur {
         //electeurs = new ArrayList<>();
         electeur = new Electeur();
         manipulationDeDonnes = new ManipulationDeDonnes();
-        //charts = new HashSet<>();
     }
 
     @Override
@@ -33,9 +32,7 @@ public class MenuElecteur implements IMenuElecteur {
             menu();
         }
         while (reponse != 15);
-        // scanner.close();
     }
-
 
     @Override
     public void menu() {
@@ -55,10 +52,6 @@ public class MenuElecteur implements IMenuElecteur {
         System.out.println("13) Consulter score de la liste");
         System.out.println("14) Changer de mot de passe");
         System.out.println("15) Quitter l'application");
-        /*
-        System.out.println("1) Chart par  score par liste electoriale");
-            System.out.println("2) Charte par score par candidat");
-         */
         reponse = this.scanner.nextInt();
         switch (reponse) {
             case 1:

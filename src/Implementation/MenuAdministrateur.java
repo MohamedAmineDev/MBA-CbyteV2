@@ -29,9 +29,6 @@ public class MenuAdministrateur implements IMenuAdministrateur {
 
     @Override
     public void application() {
-       /* ArrayList<ListeElectoriale> listeElectoriales = new ArrayList<>();
-        listeElectoriales.add(manipulationDeDonnes.chargerListeElectoriale("listeselectoriales.datas"));
-        administrateur.setListeElectorale(listeElectoriales);*/
         do {
             menu();
         }
@@ -133,8 +130,9 @@ public class MenuAdministrateur implements IMenuAdministrateur {
             System.out.println("Donner l'annee (positive)");
             annee = scanner.nextInt();
         }
-        while (annee > -1);
+        while (annee < 0);
         candidat.setDateNaissance(jour, mois, annee);
+        scanner.nextLine();
         System.out.println("Donner un nom d'utilisateur");
         candidat.setUserName(scanner.nextLine());
         System.out.println("Donner un mot de passe");
@@ -360,7 +358,7 @@ public class MenuAdministrateur implements IMenuAdministrateur {
                     System.out.println("Donner l'annee (positive)");
                     annee = scanner.nextInt();
                 }
-                while (annee > -1);
+                while (annee < 0);
                 candidat.setDateNaissance(jour, mois, annee);
             }
             do {
