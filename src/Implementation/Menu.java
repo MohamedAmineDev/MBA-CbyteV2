@@ -96,15 +96,17 @@ public class Menu implements IApplication {
                 username = scanner.nextLine();
                 System.out.println("Donner votre mot de passe");
                 password = scanner.nextLine();
+                int index = 1;
                 for (ListeElectoriale listes : administrateur.getListeElectorale()
                 ) {
                     for (Candidat candidat : listes.getCandidatList()
                     ) {
                         if (candidat.getUserName().equalsIgnoreCase(username) == true && candidat.getPassword().equalsIgnoreCase(password) == true) {
-                            versionCandidat(candidat);
+                            versionCandidat(candidat, index);
                             break;
                         }
                     }
+                    index++;
                 }
 
             case 4:
@@ -159,29 +161,33 @@ public class Menu implements IApplication {
 
     @Override
     public void versionAdministrateur() {
-        menuAdministrateur.setAdministrateur(administrateur);
-        menuAdministrateur.setScanner(scanner);
-        menuAdministrateur.application();
-        administrateur = menuAdministrateur.getAdministrateur();
+        this.menuAdministrateur.setElecteurs(this.electeurs);
+        this.menuAdministrateur.setAdministrateur(administrateur);
+        this.menuAdministrateur.setScanner(scanner);
+        this.menuAdministrateur.application();
+        this.administrateur = menuAdministrateur.getAdministrateur();
     }
 
     @Override
     public void versionElecteur(Electeur electeur) {
-        menuElecteur.setScanner(scanner);
-        menuElecteur.setElecteur(electeur);
-        menuElecteur.setAdministrateur(administrateur);
-        menuElecteur.setCharts(administrateur.getCharts());
+        this.menuElecteur.setScanner(scanner);
+        this.menuElecteur.setElecteur(electeur);
+        this.menuElecteur.setAdministrateur(administrateur);
         menuElecteur.application();
-        administrateur = menuElecteur.getAdministrateur();
+        this.administrateur = menuElecteur.getAdministrateur();
+        Electeur e = menuElecteur.getElecteur();
+        int index = electeurs.indexOf(e);
+        this.electeurs.set(index, e);
     }
 
     @Override
-    public void versionCandidat(Candidat candidat) {
-        menuCandidat.setScanner(scanner);
-        menuCandidat.setCandidat(candidat);
-        menuCandidat.setAdministrateur(administrateur);
-        menuCandidat.application();
-        administrateur = menuCandidat.getAdministrateur();
+    public void versionCandidat(Candidat candidat, int index) {
+        this.menuCandidat.setScanner(scanner);
+        this.menuCandidat.setIndex(index);
+        this.menuCandidat.setCandidat(candidat);
+        this.menuCandidat.setAdministrateur(administrateur);
+        this.menuCandidat.application();
+        this.administrateur = menuCandidat.getAdministrateur();
     }
 
     public int getReponse() {

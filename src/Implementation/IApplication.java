@@ -12,5 +12,5 @@ public interface IApplication {
 
     void versionElecteur(Electeur electeur);
 
-    void versionCandidat(Candidat candidat);
+    void versionCandidat(Candidat candidat, int index);
 }

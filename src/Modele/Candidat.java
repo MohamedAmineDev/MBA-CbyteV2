@@ -249,7 +249,7 @@ public class Candidat extends Compte implements ICandidat, Serializable, IUtilis
     @Override
     public void consulterActivites() {
         if (!activites.isEmpty()) {
-            System.out.println("La liste des activitées du candidat Monsieur " + nom + " :");
+            System.out.println("\nLa liste des activitées du candidat  " + nom + " " + prenom + " :");
             Design.dessinerLigne(180);
             String[] tab = new String[4];
             tab[0] = " Id |";
@@ -286,7 +286,7 @@ public class Candidat extends Compte implements ICandidat, Serializable, IUtilis
                 Design.dessinerLigne(180);
             }
         } else {
-            System.out.println("La liste des activitées du candidat  " + nom + " " + prenom + " est encore vide !");
+            System.out.println("\nLa liste des activitées du candidat  " + nom + " " + prenom + " est encore vide !");
         }
     }
 
@@ -337,7 +337,7 @@ public class Candidat extends Compte implements ICandidat, Serializable, IUtilis
             tab[1] = " Sujet                  |";
             tab[2] = " Réclamé par            |";
             tab[3] = " Justfication ";
-            System.out.println("La liste des reclamations concernant le candidat  " + nom + " " + prenom + " :\n");
+            System.out.println("\nLa liste des reclamations concernant le candidat  " + nom + " " + prenom + " :\n");
             Design.dessinerLigne(180);
             System.out.println(tab[0] + tab[1] + tab[2] + tab[3]);
             Design.dessinerLigne(180);
@@ -376,7 +376,7 @@ public class Candidat extends Compte implements ICandidat, Serializable, IUtilis
                 Design.dessinerLigne(180);
             }
         } else {
-            System.out.println("La liste des reclamations concernant le candidat Monsieur " + nom + " est encore vide !");
+            System.out.println("\nLa liste des reclamations concernant le candidat  " + nom + " " + prenom + " est encore vide !");
 
         }
     }
@@ -412,7 +412,7 @@ public class Candidat extends Compte implements ICandidat, Serializable, IUtilis
     @Override
     public void consulterAvis() {
         if (!this.avis.isEmpty()) {
-            System.out.println("La liste des avis des electeurs concernant le candidat  " + nom + " " + prenom + " :");
+            System.out.println("\nLa liste des avis des electeurs concernant le candidat  " + nom + " " + prenom + " :");
             Design.dessinerLigne(180);
             String[] tab = new String[4];
             tab[0] = " Id |";
@@ -450,14 +450,14 @@ public class Candidat extends Compte implements ICandidat, Serializable, IUtilis
                 Design.dessinerLigne(180);
             }
         } else {
-            System.out.println("La liste des avis concerant le condidat Monsieur " + nom + " est vide !");
+            System.out.println("\nLa liste des avis concerant le condidat  " + nom + " " + prenom + " est vide !");
         }
 
     }
 
     public void consulterAvis(Electeur electeur) {
         if (!this.avis.isEmpty()) {
-            System.out.println("Voici ton avis  concernant le candidat " + nom + " " + prenom + " :");
+            System.out.println("\nVoici ton avis  concernant le candidat " + nom + " " + prenom + " :");
             Design.dessinerLigne(180);
             String[] tab = new String[4];
             tab[0] = " Id |";
@@ -496,7 +496,7 @@ public class Candidat extends Compte implements ICandidat, Serializable, IUtilis
                 }
             }
         } else {
-            System.out.println("La liste des avis concerant le condidat Monsieur " + nom + " est vide !");
+            System.out.println("\nLa liste des avis concerant le condidat  " + nom + " " + prenom + " est vide !");
         }
 
     }
@@ -504,7 +504,7 @@ public class Candidat extends Compte implements ICandidat, Serializable, IUtilis
     @Override
     public void consulterAvisDunElecteur(Electeur electeur) {
         if (!this.avis.isEmpty()) {
-            System.out.println("La liste des avis des electeurs concernant le candidat Monsieur " + nom + " :");
+            System.out.println("\nLa liste des avis des electeurs concernant le candidat  " + nom + " " + prenom + " :");
             Design.dessinerLigne(180);
             String[] tab = new String[4];
             tab[0] = " Id |";
@@ -544,7 +544,7 @@ public class Candidat extends Compte implements ICandidat, Serializable, IUtilis
                 }
             }
         } else {
-            System.out.println("La liste des avis concerant le condidat Monsieur " + nom + " est vide !");
+            System.out.println("\nLa liste des avis concerant le condidat  " + nom + prenom + " est vide !");
         }
     }
 
@@ -587,6 +587,7 @@ public class Candidat extends Compte implements ICandidat, Serializable, IUtilis
             j++;
 
         }
+        //System.out.println("ppppppppppppppppppppppppppp");
         Design.dessinerCases(ts, ts.length);
         Design.dessinerLigne(180);
     }
@@ -605,6 +606,113 @@ public class Candidat extends Compte implements ICandidat, Serializable, IUtilis
 
     public void afficherCandidat() {
         int n = 1;
+        String[] tab = new String[7];
+        tab[0] = " Num Liste |";
+        tab[1] = " Cin            |";
+        tab[2] = " Nom                 |";
+        tab[3] = " Prenom              |";
+        tab[4] = " Compte Facebook     |";
+        tab[5] = " Compte Tweeter      |";
+        tab[6] = " Score";
+        /*Design.dessinerLigne(180);
+        Design.dessinerCases(tab, tab.length);
+        Design.dessinerLigne(180);*/
+        String[] ts = new String[7];
+        ts[0] = " " + n + "";
+        ts[1] = " " + getCin() + "";
+        ts[2] = " " + getNom() + "";
+        if (getPrenom().isEmpty()) {
+            ts[3] = " " + "Vide" + "";
+        } else {
+            ts[3] = " " + getPrenom() + "";
+        }
+        if (getFacebook().isEmpty()) {
+            ts[4] = " " + "Vide" + "";
+        } else {
+            ts[4] = " " + getFacebook() + "";
+        }
+        if (getTweeter().isEmpty()) {
+            ts[5] = " " + "Vide" + "";
+        } else {
+            ts[5] = " " + getTweeter() + "";
+        }
+        ts[6] = " " + getScore();
+        int i;
+        int j = 0;
+        while (j < 7) {
+            i = tab[j].length() - ts[j].length();
+            i--;
+            if (i > 0) {
+                while (i > 0) {
+                    ts[j] = ts[j] + " ";
+                    i--;
+                }
+            }
+            if (j < 6) {
+                ts[j] = ts[j] + "|";
+            }
+            j++;
+
+        }
+        Design.dessinerCases(ts, ts.length);
+        Design.dessinerLigne(180);
+    }
+
+    ////////////
+    public void afficherCandidat(int n) {
+        String[] tab = new String[7];
+        tab[0] = " Num Liste |";
+        tab[1] = " Cin            |";
+        tab[2] = " Nom                 |";
+        tab[3] = " Prenom              |";
+        tab[4] = " Compte Facebook     |";
+        tab[5] = " Compte Tweeter      |";
+        tab[6] = " Score";
+        /*Design.dessinerLigne(180);
+        Design.dessinerCases(tab, tab.length);
+        Design.dessinerLigne(180);*/
+        String[] ts = new String[7];
+        ts[0] = " " + n + "";
+        ts[1] = " " + getCin() + "";
+        ts[2] = " " + getNom() + "";
+        if (getPrenom().isEmpty()) {
+            ts[3] = " " + "Vide" + "";
+        } else {
+            ts[3] = " " + getPrenom() + "";
+        }
+        if (getFacebook().isEmpty()) {
+            ts[4] = " " + "Vide" + "";
+        } else {
+            ts[4] = " " + getFacebook() + "";
+        }
+        if (getTweeter().isEmpty()) {
+            ts[5] = " " + "Vide" + "";
+        } else {
+            ts[5] = " " + getTweeter() + "";
+        }
+        ts[6] = " " + getScore();
+        int i;
+        int j = 0;
+        while (j < 7) {
+            i = tab[j].length() - ts[j].length();
+            i--;
+            if (i > 0) {
+                while (i > 0) {
+                    ts[j] = ts[j] + " ";
+                    i--;
+                }
+            }
+            if (j < 6) {
+                ts[j] = ts[j] + "|";
+            }
+            j++;
+
+        }
+        Design.dessinerCases(ts, ts.length);
+        Design.dessinerLigne(180);
+    }
+
+    public void afficherMonCompte(int n) {
         String[] tab = new String[7];
         tab[0] = " Num Liste |";
         tab[1] = " Cin            |";
@@ -656,6 +764,7 @@ public class Candidat extends Compte implements ICandidat, Serializable, IUtilis
         Design.dessinerCases(ts, ts.length);
         Design.dessinerLigne(180);
     }
+    //////////
 
     @Override
     public String toString() {

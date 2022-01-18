@@ -15,7 +15,7 @@ public interface IAdministrateur {
 
     boolean caluclerScoreDesCandidatDeUneListe(int numeroListe);
 
-    Chart chartScoreParCandidat(Candidat candidat, List<Electeur> electeurs);
+    Chart chartScoreParCandidat(Candidat candidat, List<Electeur> electeurs,int numListe);
 
     Chart chartScoreParListeElectoriale(int numroListe, List<Electeur> electeurs);
 

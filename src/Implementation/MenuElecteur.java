@@ -16,7 +16,6 @@ public class MenuElecteur implements IMenuElecteur {
     //private List<Electeur> electeurs;
     private Electeur electeur;
     private ManipulationDeDonnes manipulationDeDonnes;
-    private HashSet<Chart> charts;
 
     public MenuElecteur() {
         administrateur = new Administrateur();
@@ -25,7 +24,7 @@ public class MenuElecteur implements IMenuElecteur {
         //electeurs = new ArrayList<>();
         electeur = new Electeur();
         manipulationDeDonnes = new ManipulationDeDonnes();
-        charts = new HashSet<>();
+        //charts = new HashSet<>();
     }
 
     @Override
@@ -33,7 +32,7 @@ public class MenuElecteur implements IMenuElecteur {
         do {
             menu();
         }
-        while (reponse != 14);
+        while (reponse != 15);
         // scanner.close();
     }
 
@@ -54,7 +53,8 @@ public class MenuElecteur implements IMenuElecteur {
         System.out.println("11) Modifier une reclamation concernant un candidat");
         System.out.println("12) Supprimer s'a  reclamation sur un candidat");
         System.out.println("13) Consulter score de la liste");
-        System.out.println("14) Quitter l'application");
+        System.out.println("14) Changer de mot de passe");
+        System.out.println("15) Quitter l'application");
         /*
         System.out.println("1) Chart par  score par liste electoriale");
             System.out.println("2) Charte par score par candidat");
@@ -100,6 +100,12 @@ public class MenuElecteur implements IMenuElecteur {
             case 13:
                 choix13();
                 break;
+            case 14:
+                choix14();
+                break;
+            case 15:
+                choix15();
+                break;
             default:
                 System.out.println("Vous devez choisir une des options du menu !!!! ");
         }
@@ -142,7 +148,7 @@ public class MenuElecteur implements IMenuElecteur {
         cin = scanner.nextInt();
         Candidat candidat = administrateur.chercherCandidat(numListe, cin);
         if (candidat != null) {
-            candidat.afficherCandidat();
+            candidat.afficherMonCompte((numListe + 1));
             //System.out.println("Liste des activité");
             candidat.consulterActivites();
             System.out.println("");
@@ -263,6 +269,8 @@ public class MenuElecteur implements IMenuElecteur {
         int choix = 0;
         do {
             System.out.println("Voulez vous vraiemnt supprimer un avis ?");
+            System.out.println("1) Oui");
+            System.out.println("2) Non");
             choix = scanner.nextInt();
         }
         while (choix < 1 || choix > 2);
@@ -282,12 +290,9 @@ public class MenuElecteur implements IMenuElecteur {
             Candidat candidat = administrateur.chercherCandidat(numListe, cin);
             if (candidat != null) {
                 int idAvis = 0;
-                do {
-                    candidat.consulterAvis(electeur);
-                    System.out.println("Donner l'id de l'avis que vous voulez supprimer ");
-                    idAvis = scanner.nextInt();
-                }
-                while (idAvis > candidat.getAvis().size());
+                candidat.consulterAvisDunElecteur(electeur);
+                System.out.println("Donner l'id de l'avis que vous voulez supprimer ");
+                idAvis = scanner.nextInt();
                 Avis avis = candidat.chercherActivite(idAvis);
                 boolean test = false;
                 if (avis != null) {
@@ -311,6 +316,10 @@ public class MenuElecteur implements IMenuElecteur {
     @Override
     public void choix7() {
         //System.out.println("7) Consulter une charte par client");
+        for (Chart chart : administrateur.getCharts()
+        ) {
+            System.out.println(chart);
+        }
         administrateur.consulterListeElectorales();
         int numListe = 0;
         do {
@@ -352,15 +361,12 @@ public class MenuElecteur implements IMenuElecteur {
         /*ListeElectoriale listeElectoriale = administrateur.chercherListe(numListe);
         listeElectoriale.scoreDeLaListe();*/
         //System.out.println(cli);
-        if (!charts.isEmpty()) {
-            for (Chart chart : charts
-            ) {
-                if (chart.getNumListe() == numListe) {
-                    System.out.println(chart);
-                }
-            }
+        Chart chart = administrateur.chercherCharte(null, numListe);
+        if (chart != null) {
+            System.out.println("Titre de la charte : " + chart.getTitre());
+            System.out.println("Resulat : " + chart.getResultat());
         } else {
-            System.out.println("La liste des chartes est vides !!");
+            System.out.println("Charte introuvable !!");
         }
     }
 
@@ -560,16 +566,33 @@ public class MenuElecteur implements IMenuElecteur {
         this.manipulationDeDonnes = manipulationDeDonnes;
     }
 
-    public HashSet<Chart> getCharts() {
-        return charts;
-    }
+    @Override
+    public void choix14() {
+        int choix = 0;
+        do {
+            System.out.println("Voulez vous vraiment changer de mot de passe ?");
+            choix = scanner.nextInt();
+        }
+        while (choix < 1 || choix > 2);
 
-    public void setCharts(HashSet<Chart> charts) {
-        this.charts = charts;
+        if (choix == 1) {
+            String confirmationMotDePasse = new String();
+            scanner.nextLine();
+            boolean test = false;
+            do {
+                System.out.println("Donner le nouveau mot de passe");
+                electeur.setPassword(scanner.nextLine());
+                System.out.println("Retaper le nouveau mot de passe");
+                confirmationMotDePasse = scanner.nextLine();
+                test = electeur.getPassword().equalsIgnoreCase(confirmationMotDePasse);
+            }
+            while (test == false);
+            System.out.println("Le mot de passe a été changé avec succès ");
+        }
     }
 
     @Override
-    public void choix14() {
+    public void choix15() {
         int choix = 0;
         do {
             System.out.println("Voulez vous vraiment quitter l'application ?");
@@ -578,19 +601,7 @@ public class MenuElecteur implements IMenuElecteur {
             choix = scanner.nextInt();
         }
         while (choix < 1 || choix > 2);
-        if (choix == 1) {
-            do {
-                System.out.println("Voulez vous sauvegarder vos données ?");
-                System.out.println("1) Oui");
-                System.out.println("2) Non");
-                choix = scanner.nextInt();
-            }
-            while (choix < 1 || choix > 2);
-            if (choix == 1) {
-                boolean test;
-
-            }
-        } else {
+        if (choix == 2) {
             menu();
         }
     }

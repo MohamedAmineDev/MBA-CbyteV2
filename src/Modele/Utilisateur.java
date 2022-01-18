@@ -88,15 +88,27 @@ public abstract class Utilisateur extends Compte implements IUtilisateur, Serial
             Design.dessinerLigne(180);
             Design.dessinerCases(tab, tab.length);
             Design.dessinerLigne(180);*/
-            int i = 0;
+            int i = 1;
+            String[] tab = new String[7];
+            tab[0] = " Num Liste |";
+            tab[1] = " Cin            |";
+            tab[2] = " Nom                 |";
+            tab[3] = " Prenom              |";
+            tab[4] = " Compte Facebook     |";
+            tab[5] = " Compte Tweeter      |";
+            tab[6] = " Score";
+            Design.dessinerLigne(180);
+            Design.dessinerCases(tab, tab.length);
+            Design.dessinerLigne(180);
             for (ListeElectoriale liste : listeElectorale
             ) {
                 // System.out.println("Liste numéro '" + (i + 1) + "'\n");
-                liste.consulterCandidats();
+                liste.consulterCandidats(i);
+                //System.out.println("---------------");
                 //System.out.println("");
                 i++;
             }
-            Design.dessinerLigne(180);
+            //Design.dessinerLigne(180);
             System.out.println("");
         } else {
             System.out.println("Les listes electoriales sont vides !!!");
@@ -178,7 +190,7 @@ public abstract class Utilisateur extends Compte implements IUtilisateur, Serial
     public Chart chercherCharte(Candidat candidat, int numListe) {
         for (Chart chart : charts
         ) {
-            if (chart.getCandidat() == null && chart.getNumListe() == numListe) {
+            if (chart.getCandidat().equals(candidat) && chart.getNumListe() == numListe) {
                 return chart;
             }
         }

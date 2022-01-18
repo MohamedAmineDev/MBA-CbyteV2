@@ -2,6 +2,7 @@ package Implementation;
 
 import Modele.Administrateur;
 import Modele.Candidat;
+import Modele.ListeElectoriale;
 import Modele.Reclamation;
 
 import java.util.Scanner;
@@ -11,10 +12,12 @@ public class MenuCandidat implements IMenuCandidat {
     private int reponse;
     private Scanner scanner;
     private Candidat candidat;
+    private int index;
 
     public MenuCandidat() {
         administrateur = new Administrateur();
         reponse = 0;
+        index = 0;
     }
 
     @Override
@@ -79,31 +82,12 @@ public class MenuCandidat implements IMenuCandidat {
 
     @Override
     public void choix2() {
-        // System.out.println("3) Consulter un candidat en détails");
-        administrateur.consulterListeElectorales();
-        int numListe = 0;
-        do {
-            System.out.println("Vous avez " + administrateur.nombreDeListes() + " listes a utiliser");
-            System.out.println("Donner le numéro de la liste dans la quelle le candidat que vous chercher appartient");
-            numListe = scanner.nextInt();
-        }
-        while (numListe > administrateur.nombreDeListes());
-        numListe--;
-        int cin = 0;
-        System.out.println("Donner le cin du candidat que vous chercher");
-        cin = scanner.nextInt();
-        Candidat candidat = administrateur.chercherCandidat(numListe, cin);
-        if (candidat != null) {
-            candidat.afficherCandidat();
-            //System.out.println("Liste des activité");
-            candidat.consulterActivites();
-            System.out.println("");
-            //System.out.println("Liste des reclamations");
-            candidat.consulterAvis();
-            System.out.println("");
-        } else {
-            System.out.println("Candidat introuvable !");
-        }
+        candidat.afficherMonCompte(index);
+        System.out.println("");
+        candidat.consulterActivites();
+        System.out.println("");
+        candidat.consulterAvis();
+        System.out.println("");
     }
 
     @Override
@@ -211,19 +195,7 @@ public class MenuCandidat implements IMenuCandidat {
             choix = scanner.nextInt();
         }
         while (choix < 1 || choix > 2);
-        if (choix == 1) {
-            do {
-                System.out.println("Voulez vous sauvegarder vos données ?");
-                System.out.println("1) Oui");
-                System.out.println("2) Non");
-                choix = scanner.nextInt();
-            }
-            while (choix < 1 || choix > 2);
-            if (choix == 1) {
-                boolean test;
-
-            }
-        } else {
+        if (choix == 2) {
             menu();
         }
     }
@@ -273,5 +245,13 @@ public class MenuCandidat implements IMenuCandidat {
 
     public void setCandidat(Candidat candidat) {
         this.candidat = candidat;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 }

@@ -11,7 +11,6 @@ public class Administrateur extends Utilisateur implements IAdministrateur {
     }
 
 
-
     @Override
     public void ajouterListeElectoriale() {
         this.getListeElectorale().add(new ListeElectoriale());
@@ -60,7 +59,7 @@ public class Administrateur extends Utilisateur implements IAdministrateur {
     }
 
     @Override
-    public Chart chartScoreParCandidat(Candidat candidat, List<Electeur> electeurs) {
+    public Chart chartScoreParCandidat(Candidat candidat, List<Electeur> electeurs, int numListe) {
         double score = 0;
         if (!candidat.getAvis().isEmpty()) {
             for (Avis avis : candidat.getAvis()
@@ -71,7 +70,7 @@ public class Administrateur extends Utilisateur implements IAdministrateur {
             score = score / electeurs.size();
             System.out.println(score);
             //System.out.println("Score de Monsieur  " + candidat.getNom() + " : " + score + "%");
-            return new Chart("Chart de Monsieur " + candidat.getNom(), score, candidat, 0);
+            return new Chart("Chart de Monsieur " + candidat.getNom(), score, candidat, numListe);
         } else {
             return null;
         }

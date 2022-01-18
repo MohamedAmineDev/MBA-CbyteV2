@@ -83,6 +83,6 @@ public class Chart implements Serializable {
 
     @Override
     public String toString() {
-        return "" + titre + " : " + (resultat * 100) + "%";
+        return "" + titre + " : " + resultat + "%";
     }
 }

@@ -121,6 +121,32 @@ public class ListeElectoriale implements IListeElectoriale, Serializable {
         }
     }
 
+    /////
+    public void consulterCandidats(int n) {
+        if (!candidatList.isEmpty()) {
+           /* String[] tab = new String[7];
+            tab[0] = " Num Liste |";
+            tab[1] = " Cin            |";
+            tab[2] = " Nom                 |";
+            tab[3] = " Prenom              |";
+            tab[4] = " Compte Facebook     |";
+            tab[5] = " Compte Tweeter      |";
+            tab[6] = " Score";
+            Design.dessinerLigne(180);
+            Design.dessinerCases(tab, tab.length);
+            Design.dessinerLigne(180);*/
+            for (Candidat candidat : candidatList
+            ) {
+                candidat.afficherCandidat(n);
+            }
+
+        } else {
+            Design.dessinerLigne(180);
+            System.out.println("La Liste est vide !!!");
+        }
+    }
+
+    //////////
     @Override
     public String toString() {
         return "" + candidatList + "" + score;

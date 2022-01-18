@@ -89,6 +89,9 @@ public class MenuAdministrateur implements IMenuAdministrateur {
             case 11:
                 choix11();
                 break;
+            case 12:
+                choix12();
+                break;
             default:
                 System.out.println("Vous devez choisir une des options du menu !!!! ");
         }
@@ -250,7 +253,7 @@ public class MenuAdministrateur implements IMenuAdministrateur {
         numListe--;
         Candidat candidat = administrateur.chercherCandidat(numListe, cin);
         if (candidat != null) {
-            candidat.afficherCandidat();
+            candidat.afficherMonCompte(numListe);
             System.out.println("");
             //System.out.println("Liste des activité");
             candidat.consulterActivites();
@@ -372,73 +375,58 @@ public class MenuAdministrateur implements IMenuAdministrateur {
                 for (Map.Entry activite : candidat.getActivites().entrySet()
                 ) {
                     int k;
-                    System.out.println("Donner une nouvelle durée");
                     Activite activite1 = (Activite) activite.getValue();
-                    activite1.setDuree(scanner.nextFloat());
+                    int choix = 0;
                     do {
-                        System.out.println("Quelle support le candidat a utilisé ?");
-                        System.out.println("1) Video");
-                        System.out.println("2) Photos");
-                        System.out.println("3) Liens");
-                        System.out.println("4) Texte");
-                        System.out.println("5) Papiers");
-                        k = scanner.nextInt();
-                        switch (k) {
-                            case 1:
-                                activite1.setSupport(Support.VIDEO);
-                                break;
-                            case 2:
-                                activite1.setSupport(Support.PHOTOS);
-                                break;
-                            case 3:
-                                activite1.setSupport(Support.LIENS);
-                                break;
-                            case 4:
-                                activite1.setSupport(Support.TEXTE);
-                                break;
-                            case 5:
-                                activite1.setSupport(Support.PAPIERS);
-                                break;
-                            default:
-                                System.out.println("Vous devez choisir l'un de ces 5 support !!!!!");
-                        }
+                        System.out.println("Voulez vous modifier la durée de cette activité ? (" + activite1.getDuree() + " s)");
+                        System.out.println("1) Oui");
+                        System.out.println("2) Non");
+                        choix = scanner.nextInt();
                     }
-                    while (k < 1 || k > 5);
-//                Type type = (Type) activite.getKey();
-//                do {
-//                    System.out.println("Quelle type d'acitivité le candidat pratique ?");
-//                    System.out.println("1) Scientifique");
-//                    System.out.println("2) Politique");
-//                    System.out.println("3) Economique");
-//                    System.out.println("4) Sociale");
-//                    System.out.println("5) Humanitaire");
-//                    System.out.println("6) Autre");
-//                    k = scanner.nextInt();
-//
-//                    switch (k) {
-//                        case 1:
-//                            type = Type.SCIENTIFIQUE;
-//                            break;
-//                        case 2:
-//                            type = Type.POLITIQUE;
-//                            break;
-//                        case 3:
-//                            type = Type.ECONOMIQUE;
-//                            break;
-//                        case 4:
-//                            type = Type.SOCIALE;
-//                            break;
-//                        case 5:
-//                            type = Type.HUMANITAIRE;
-//                            break;
-//                        case 6:
-//                            type = Type.AUTRE;
-//                            break;
-//                        default:
-//                            System.out.println("Vous devez choisir l'un de ces 5 support !!!!!");
-//                    }
-//                }
-//                while (k < 1 || k > 6);
+                    while (choix < 1 || choix > 2);
+                    if (choix == 1) {
+                        System.out.println("Donner une nouvelle durée");
+                        activite1.setDuree(scanner.nextFloat());
+                    }
+                    do {
+                        System.out.println("Voulez vous modifier le support de cette activité ? (" + activite1.getSupport() + " s)");
+                        System.out.println("1) Oui");
+                        System.out.println("2) Non");
+                        choix = scanner.nextInt();
+                    }
+                    while (choix < 1 || choix > 2);
+                    if (choix == 1) {
+                        do {
+                            System.out.println("Quelle support le candidat a utilisé ?");
+                            System.out.println("1) Video");
+                            System.out.println("2) Photos");
+                            System.out.println("3) Liens");
+                            System.out.println("4) Texte");
+                            System.out.println("5) Papiers");
+                            k = scanner.nextInt();
+                            switch (k) {
+                                case 1:
+                                    activite1.setSupport(Support.VIDEO);
+                                    break;
+                                case 2:
+                                    activite1.setSupport(Support.PHOTOS);
+                                    break;
+                                case 3:
+                                    activite1.setSupport(Support.LIENS);
+                                    break;
+                                case 4:
+                                    activite1.setSupport(Support.TEXTE);
+                                    break;
+                                case 5:
+                                    activite1.setSupport(Support.PAPIERS);
+                                    break;
+                                default:
+                                    System.out.println("Vous devez choisir l'un de ces 5 support !!!!!");
+                            }
+                        }
+                        while (k < 1 || k > 5);
+
+                    }
                     Type type = (Type) activite.getKey();
                     boolean test = candidat.modifierActivite(type, activite1);
                     if (test) {
@@ -618,7 +606,7 @@ public class MenuAdministrateur implements IMenuAdministrateur {
             int cin = scanner.nextInt();
             Candidat candidat = administrateur.chercherCandidat(numList, cin);
             if (candidat != null) {
-                Chart chart = administrateur.chartScoreParCandidat(candidat, electeurs);
+                Chart chart = administrateur.chartScoreParCandidat(candidat, electeurs, numList);
                 if (chart != null) {
                     System.out.println("La charte a été créer avec succès");
                     boolean test = administrateur.ajouterCharte(chart);
