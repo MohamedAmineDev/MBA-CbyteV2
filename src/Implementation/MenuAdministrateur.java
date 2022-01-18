@@ -116,6 +116,25 @@ public class MenuAdministrateur implements IMenuAdministrateur {
         candidat.setNom(scanner.nextLine());
         System.out.println("Donner un prenom");
         candidat.setPrenom(scanner.nextLine());
+        int jour = 0;
+        do {
+            System.out.println("Donner le jour entre(1 et 31)");
+            jour = scanner.nextInt();
+        }
+        while (jour < 1 || jour > 31);
+        int mois = 0;
+        do {
+            System.out.println("Donner le mois entre(1 et 12)");
+            mois = scanner.nextInt();
+        }
+        while (mois < 1 || mois > 12);
+        int annee = 0;
+        do {
+            System.out.println("Donner l'annee (positive)");
+            annee = scanner.nextInt();
+        }
+        while (annee > -1);
+        candidat.setDateNaissance(jour, mois, annee);
         System.out.println("Donner un nom d'utilisateur");
         candidat.setUserName(scanner.nextLine());
         System.out.println("Donner un mot de passe");
@@ -315,6 +334,34 @@ public class MenuAdministrateur implements IMenuAdministrateur {
                 scanner.nextLine();
                 System.out.println("Donner un nouveau prenom");
                 candidat.setPrenom(scanner.nextLine());
+            }
+            do {
+                System.out.println("Voulez vous modifier cette date de naissance ? (" + candidat.getDateNaissance() + ")");
+                System.out.println("1) Oui");
+                System.out.println("2) Non");
+                rep = scanner.nextInt();
+            }
+            while (rep < 1 || rep > 2);
+            if (rep == 1) {
+                int jour = 0;
+                do {
+                    System.out.println("Donner le jour entre(1 et 31)");
+                    jour = scanner.nextInt();
+                }
+                while (jour < 1 || jour > 31);
+                int mois = 0;
+                do {
+                    System.out.println("Donner le mois entre(1 et 12)");
+                    mois = scanner.nextInt();
+                }
+                while (mois < 1 || mois > 12);
+                int annee = 0;
+                do {
+                    System.out.println("Donner l'annee (positive)");
+                    annee = scanner.nextInt();
+                }
+                while (annee > -1);
+                candidat.setDateNaissance(jour, mois, annee);
             }
             do {
                 System.out.println("Voulez vous modifier ce compte facebook ? (" + candidat.getFacebook() + ")");

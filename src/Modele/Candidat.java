@@ -75,8 +75,8 @@ public class Candidat extends Compte implements ICandidat, Serializable, IUtilis
         return dateNaissance;
     }
 
-    public void setDateNaissance(String dateNaissance) {
-        this.dateNaissance = dateNaissance;
+    public void setDateNaissance(int jour, int mois, int annee) {
+        this.dateNaissance = new String(jour + "/" + mois + "/" + annee);
     }
 
     public String getPhoto() {
