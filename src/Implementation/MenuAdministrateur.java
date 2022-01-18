@@ -35,7 +35,7 @@ public class MenuAdministrateur implements IMenuAdministrateur {
         do {
             menu();
         }
-        while (reponse != 11);
+        while (reponse != 12);
         //scanner.close();
     }
 
@@ -52,7 +52,8 @@ public class MenuAdministrateur implements IMenuAdministrateur {
         System.out.println("8) Consulter les reclamations de chaque client");
         System.out.println("9) Supprimer un reclamation");
         System.out.println("10) Calculer score des candidats");
-        System.out.println("11) Quitter l'application");
+        System.out.println("11) Calculer score d'une liste");
+        System.out.println("12) Quitter l'application");
         reponse = this.scanner.nextInt();
         switch (reponse) {
             case 1:
@@ -698,6 +699,7 @@ public class MenuAdministrateur implements IMenuAdministrateur {
         System.out.println("Les scores sont maitenant calculé ");
     }
 
+
     public Administrateur getAdministrateur() {
         return administrateur;
     }
@@ -732,6 +734,19 @@ public class MenuAdministrateur implements IMenuAdministrateur {
 
     @Override
     public void choix11() {
+        int numListe = 0;
+        do {
+            System.out.println("Vous avez " + administrateur.nombreDeListes() + " listes a utiliser");
+            System.out.println("Donner le numéro de la liste");
+            numListe = scanner.nextInt();
+        }
+        while (numListe > administrateur.nombreDeListes());
+        numListe--;
+        System.out.println("Le score de la liste " + (numListe + 1) + " est " + administrateur.getListeElectorale().get(numListe).getScore());
+    }
+
+    @Override
+    public void choix12() {
         int choix = 0;
         do {
             System.out.println("Voulez vous vraiment quitter l'application ?");

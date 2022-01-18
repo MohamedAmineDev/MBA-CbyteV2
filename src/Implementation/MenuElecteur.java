@@ -33,7 +33,7 @@ public class MenuElecteur implements IMenuElecteur {
         do {
             menu();
         }
-        while (reponse != 13);
+        while (reponse != 14);
         // scanner.close();
     }
 
@@ -53,7 +53,8 @@ public class MenuElecteur implements IMenuElecteur {
         System.out.println("10) Ajouter une reclamation concernant un candidat");
         System.out.println("11) Modifier une reclamation concernant un candidat");
         System.out.println("12) Supprimer s'a  reclamation sur un candidat");
-        System.out.println("13) Quitter l'application");
+        System.out.println("13) Consulter score de la liste");
+        System.out.println("14) Quitter l'application");
         /*
         System.out.println("1) Chart par  score par liste electoriale");
             System.out.println("2) Charte par score par candidat");
@@ -507,29 +508,16 @@ public class MenuElecteur implements IMenuElecteur {
     @Override
     public void choix13() {
         //System.out.println("13) Quitter l'application");
-        int choix = 0;
+        int numListe = 0;
         do {
-            System.out.println("Voulez vous vraiment quitter l'application ?");
-            System.out.println("1) Oui");
-            System.out.println("2) Non");
-            choix = scanner.nextInt();
+            System.out.println("Vous avez " + administrateur.nombreDeListes() + " listes a utiliser");
+            System.out.println("Donner le numéro de la liste dans la quelle le candidat que vous chercher appartient");
+            numListe = scanner.nextInt();
         }
-        while (choix < 1 || choix > 2);
-        if (choix == 1) {
-            do {
-                System.out.println("Voulez vous sauvegarder vos données ?");
-                System.out.println("1) Oui");
-                System.out.println("2) Non");
-                choix = scanner.nextInt();
-            }
-            while (choix < 1 || choix > 2);
-            if (choix == 1) {
-                boolean test;
+        while (numListe > administrateur.nombreDeListes());
+        numListe--;
+        System.out.println("Le score de la liste " + (numListe + 1) + " est " + administrateur.getListeElectorale().get(numListe).getScore());
 
-            }
-        } else {
-            menu();
-        }
     }
 
     public Administrateur getAdministrateur() {
@@ -578,5 +566,32 @@ public class MenuElecteur implements IMenuElecteur {
 
     public void setCharts(HashSet<Chart> charts) {
         this.charts = charts;
+    }
+
+    @Override
+    public void choix14() {
+        int choix = 0;
+        do {
+            System.out.println("Voulez vous vraiment quitter l'application ?");
+            System.out.println("1) Oui");
+            System.out.println("2) Non");
+            choix = scanner.nextInt();
+        }
+        while (choix < 1 || choix > 2);
+        if (choix == 1) {
+            do {
+                System.out.println("Voulez vous sauvegarder vos données ?");
+                System.out.println("1) Oui");
+                System.out.println("2) Non");
+                choix = scanner.nextInt();
+            }
+            while (choix < 1 || choix > 2);
+            if (choix == 1) {
+                boolean test;
+
+            }
+        } else {
+            menu();
+        }
     }
 }

@@ -29,4 +29,6 @@ public interface IMenu {
     void choix10();
 
     void choix11();
+    
+    void choix12();
 }

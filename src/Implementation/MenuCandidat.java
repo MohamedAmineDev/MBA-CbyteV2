@@ -31,8 +31,8 @@ public class MenuCandidat implements IMenuCandidat {
         System.out.println("1) Consulter les listes electoriales");
         System.out.println("2) Consulter un candidat en détails");
         System.out.println("3) Ajouter une  reclamation");
-        System.out.println("4) Modifier une reclamation");
-        System.out.println("5) Supprimer une reclamation");
+        System.out.println("4) Modifier une de mes reclamations");
+        System.out.println("5) Supprimer une de mes reclamation");
         System.out.println("6) Consulter mes reclamations");
         System.out.println("7) Consulter la méthode de calcule du score");
         System.out.println("8) Changer de mot de passe");
@@ -235,6 +235,11 @@ public class MenuCandidat implements IMenuCandidat {
 
     @Override
     public void choix11() {
+
+    }
+
+    @Override
+    public void choix12() {
 
     }
 

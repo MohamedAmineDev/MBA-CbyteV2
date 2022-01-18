@@ -115,7 +115,7 @@ public class Menu implements IApplication {
                     choix = scanner.nextInt();
                 }
                 while (choix < 1 || choix > 2);
-                if (choix == 1) {
+                if (choix == 2) {
                     menuPrincipale();
                 }
                 break;
